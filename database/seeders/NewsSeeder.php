@@ -21,7 +21,14 @@ class NewsSeeder extends Seeder
         ]);
 
         $categories = Category::all();
-        $images = ['pict1.jpeg', 'pict2.jpeg', 'pict3.jpeg', 'pict4.jpeg', 'pict5.jpeg', 'pict6.jpeg'];
+        $images = [
+            'maritime.jpg',
+            'maritime.jpg',
+            'maritime.jpg',
+            'maritime.jpg',
+            'maritime.jpg',
+            'maritime.jpg'
+        ];
 
         $newsData = [
             [
@@ -94,7 +101,7 @@ class NewsSeeder extends Seeder
                     'content' => $data['content'],
                     'user_id' => $user->id,
                     'category_id' => $category->id,
-                    'image' => 'img/' . $images[$index % count($images)],
+                    'image' => $images[$index % count($images)],
                     'status' => $data['status'],
                     'views' => rand(50, 500),
                     'created_at' => now()->subDays(rand(1, 30)),
@@ -111,7 +118,7 @@ class NewsSeeder extends Seeder
                 'content' => 'هذا نص تجريبي لخبر إضافي يحتوي على معلومات متنوعة ومفيدة للقراء. يتضمن هذا المحتوى تفاصيل مهمة حول الموضوع المطروح ويقدم معلومات قيمة للمتابعين. النص يحتوي على فقرات متعددة تغطي جوانب مختلفة من الموضوع بشكل شامل ومفصل.',
                 'user_id' => $user->id,
                 'category_id' => $category->id,
-                'image' => 'img/' . $images[array_rand($images)],
+                'image' => $images[array_rand($images)],
                 'status' => 'Accept',
                 'views' => rand(10, 800),
                 'created_at' => now()->subDays(rand(1, 60)),

@@ -126,12 +126,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $allCategory = Category::all();
-
-        if ($news->status != 'Reject') {
-            return redirect()->back()->with('error', 'News can only be edited if it is rejected.');
-        }
-
-        return view('news.edit', compact('news', 'allCategory'));
+        return view('admin.news.edit', compact('news', 'allCategory'));
     }
 
     /**
@@ -142,35 +137,44 @@ class NewsController extends Controller
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
-                'content' => 'required|string|max:255',
+                'content' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-                'category_id' => 'required|exists:category,id'
+                'category_id' => 'required|exists:category,id',
+                'status' => 'required|in:Pending,Accept,Reject'
             ]);
 
             $data = [
                 'title' => $request->title,
                 'content' => $request->content,
-                'user_id' => Auth::id(),
                 'category_id' => $request->category_id,
+                'status' => $request->status,
             ];
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $image->storeAs('public/images/', $image->hashName());
+                $imageHashName = $image->hashName();
+                $image->storeAs('public/images/', $imageHashName);
 
-                Storage::delete('public/images/' . $news->image);
+                // Delete old image if exists
+                if ($news->image) {
+                    Storage::delete('public/images/' . $news->image);
+                }
 
-                $data['image'] = $image->hashName();
+                $data['image'] = $imageHashName;
             }
 
+            $oldStatus = $news->status;
             $news->update($data);
 
-            event(new NewsCreated($news));
+            // Fire event if status changed
+            if ($oldStatus !== $request->status) {
+                event(new NewsStatusUpdated($news, $oldStatus, $request->status));
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully update the data.',
-                'redirect_url' => route('dashboard')
+                'message' => 'Successfully updated the news.',
+                'redirect_url' => route('admin.news.manage')
             ]);
         } catch (\Exception $e) {
             return response()->json([

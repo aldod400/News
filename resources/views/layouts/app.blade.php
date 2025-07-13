@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8" />
-    <title>News Center</title>
+    <title>{{ __('general.Maritimetekers') }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="icon" href="{{ asset('img/icon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +30,11 @@
 
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
+    
+    {{-- RTL Support --}}
+    @if(app()->getLocale() == 'ar')
+    <link rel="stylesheet" href="{{ asset('css/rtl.css') }}">
+    @endif
 </head>
 
 <body>
@@ -50,7 +55,7 @@
                             <i class="fas fa-bolt text-white"></i>
                         </span>
                         <div class="pe-2 me-3 border-end border-white d-flex align-items-center">
-                            <p class="mb-0 text-white fs-6 fw-normal">Trending</p>
+                            <p class="mb-0 text-white fs-6 fw-normal">{{ __('general.Maritimetekers') }}</p>
                         </div>
                         @foreach (\App\Models\News::where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->take(1)->get() as $news)
                             <div class="overflow-hidden" style="width: 735px">
@@ -100,22 +105,7 @@
                             </button>
                         </div>
                         <div class="d-flex flex-nowrap border-top pt-3 pt-xl-0 mx-2">
-                            <div class="d-flex">
-                                <img src="{{ asset('th/img/weather-icon.png') }}" class="img-fluid w-100 ms-2"
-                                    alt="" />
-                                <div class="d-flex align-items-center">
-                                    <strong class="fs-4 text-secondary">TEMP</strong>
-                                    <div class="d-flex flex-column ms-2" style="width: 150px">
-                                        <span class="text-body">YOUR CITY</span>
-                                        <small>YOUR DATE</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <button
-                                class="btn-search btn border border-primary btn-md-square rounded-circle bg-white my-auto"
-                                data-bs-toggle="modal" data-bs-target="#searchModal">
-                                <i class="fas fa-search text-primary"></i>
-                            </button>
+                            <x-language-switcher />
                         </div>
                     </div>
                 </nav>
@@ -124,27 +114,6 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Search by keyword
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center">
-                    <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search" class="form-control p-3" placeholder="keywords"
-                            aria-describedby="search-icon-1" />
-                        <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Search End -->
 
     @yield('content')
 
@@ -156,13 +125,13 @@
                     <div class="footer-item-1">
                         <h4 class="mb-4 text-white">Get In Touch</h4>
                         <p class="text-secondary line-h">
-                            Address: <span class="text-white">Jakarta</span>
+                            Address: <span class="text-white">123 Demo St، ميامي، فلوريدا 45678، الولايات المتحدة.</span>
                         </p>
                         <p class="text-secondary line-h">
-                            Email: <span class="text-white">theun@gmail.com</span>
+                            Email: <span class="text-white">info@maritimetickers.com</span>
                         </p>
                         <p class="text-secondary line-h">
-                            Phone: <span class="text-white">+62</span>
+                            Phone: <span class="text-white">00971559554277</span>
                         </p>
                         <div class="d-flex line-h">
                             <a class="btn btn-light me-2 btn-md-square rounded-circle" href="#"><i
@@ -235,49 +204,6 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-lg-6 col-xl-3">
-                    <div class="footer-item-4">
-                        <h4 class="mb-4 text-white">Our Gallery</h4>
-                        <div class="row g-2">
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict1.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict2.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict3.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict4.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict5.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="rounded overflow-hidden">
-                                    <img src="{{ asset('img/pict6.jpeg') }}"
-                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -288,16 +214,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <span class="text-light"><a href="#"><i
-                                class="fas fa-copyright text-light me-2"></i>Theun</a>, All right reserved.</span>
-                </div>
-                <div class="col-md-6 my-auto text-center text-md-end text-white">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By
-                    <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                    Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+                    <span class="text-light"><a href="https://marketopiateam.com"><i
+                                class="fas fa-copyright text-light me-2"></i>Marketopia</a>, All right reserved.</span>
                 </div>
             </div>
         </div>

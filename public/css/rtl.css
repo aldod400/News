@@ -1,0 +1,65 @@
+/* Arabic RTL Support */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .dropdown-menu {
+    left: 0 !important;
+    right: auto !important;
+}
+
+[dir="rtl"] .navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 1rem;
+}
+
+[dir="rtl"] .breadcrumbs li {
+    float: right;
+}
+
+[dir="rtl"] .page-header h3 {
+    text-align: right;
+}
+
+[dir="rtl"] .card-title {
+    text-align: right;
+}
+
+[dir="rtl"] .table th,
+[dir="rtl"] .table td {
+    text-align: right;
+}
+
+[dir="rtl"] .btn {
+    direction: ltr;
+}
+
+[dir="rtl"] .language-switcher .btn {
+    direction: rtl;
+}
+
+/* Arabic Font Support */
+[dir="rtl"] {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fix Bootstrap RTL issues */
+[dir="rtl"] .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+}
+
+[dir="rtl"] .ms-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+}
+
+[dir="rtl"] .pe-2 {
+    padding-left: 0.5rem !important;
+    padding-right: 0 !important;
+}
+
+[dir="rtl"] .ps-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0 !important;
+}

@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'news' => 'News',
+    'categories' => 'Categories',
+    'about' => 'About',
+    'contact' => 'Contact',
+    'search' => 'Search',
+    'search_placeholder' => 'Search for news...',
+    'latest_news' => 'Latest News',
+    'popular_news' => 'Popular News',
+    'top_news' => 'Top News',
+    'read_more' => 'Read More',
+    'written_by' => 'Written by',
+    'published_on' => 'Published on',
+    'category' => 'Category',
+    'views' => 'Views',
+    'likes' => 'Likes',
+    'no_news' => 'No news available',
+    'share' => 'Share',
+    'related_news' => 'Related News',
+    'back_to_home' => 'Back to Home',
+    'language' => 'Language',
+    'arabic' => 'العربية',
+    'english' => 'English',
+    'Maritimetekers' => 'Maritimetekers',
+];

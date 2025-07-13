@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'online.status' => \App\Http\Middleware\OnlineStatus::class,
         ]);
+
+        // Apply SetLocale middleware globally
+        $middleware->web([
+            \App\Http\Middleware\SetLocale::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

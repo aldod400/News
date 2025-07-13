@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'home' => 'الرئيسية',
+    'news' => 'الأخبار',
+    'categories' => 'الأقسام',
+    'about' => 'حول الموقع',
+    'contact' => 'اتصل بنا',
+    'search' => 'بحث',
+    'search_placeholder' => 'ابحث عن الأخبار...',
+    'latest_news' => 'آخر الأخبار',
+    'popular_news' => 'الأخبار الشائعة',
+    'top_news' => 'أهم الأخبار',
+    'read_more' => 'اقرأ المزيد',
+    'written_by' => 'كتب بواسطة',
+    'published_on' => 'نُشر في',
+    'category' => 'القسم',
+    'views' => 'مشاهدة',
+    'likes' => 'إعجاب',
+    'no_news' => 'لا توجد أخبار متاحة',
+    'share' => 'شارك',
+    'related_news' => 'أخبار ذات صلة',
+    'back_to_home' => 'العودة للرئيسية',
+    'language' => 'اللغة',
+    'arabic' => 'العربية',
+    'english' => 'English',
+    'Maritimetekers' => 'خبراء الملاحة البحرية',
+];

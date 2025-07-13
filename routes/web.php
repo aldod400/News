@@ -8,12 +8,16 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\LanguageController;
 
 // All
 Route::get('/', [NewsController::class, 'index'])->name('index');
 Route::get('/news/{news}/show', [NewsController::class, 'show'])->name('news.show');
 Route::post('/news/{news}/like', [LikeController::class, 'likeNews'])->name('news.like');
 Route::get('/news/{categories}/category', [NewsController::class, 'viewCategory'])->name('news.viewCategory');
+
+// Language switching
+Route::post('/language/switch', [LanguageController::class, 'switchLanguage'])->name('language.switch');
 
 // Guest
 Route::middleware(['guest'])->group(function () {
@@ -48,6 +52,8 @@ Route::middleware(['auth', 'online.status'])->group(function () {
 Route::middleware(['role:Super Admin'])->group(function () {
     // News
     Route::resource('admin/news', NewsController::class)->names('admin.news')->only([
+        'edit',
+        'update',
         'destroy'
     ]);
     Route::get('/admin/news/manage', [NewsController::class, 'manage'])->name('admin.news.manage');

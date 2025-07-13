@@ -4,7 +4,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">News</h3>
+                <h3 class="fw-bold mb-3">{{ __('general.news') }}</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('dashboard') }}">
@@ -15,13 +15,13 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="">News</a>
+                        <a href="">{{ __('general.news') }}</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item active">
-                        <a>Manage</a>
+                        <a>{{ __('admin.manage') }}</a>
                     </li>
                 </ul>
             </div>
@@ -30,26 +30,24 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Manage News</h4>
+                            <h4 class="card-title">{{ __('admin.manage_news') }}</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="basic-datatables" class="display table table-striped table-hover text-center">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
                                             <th>ID</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
-                                            <th>Author</th>
-                                            <th>Updated At</th>
-                                            <th>Status</th>
-                                            <th style="width: 5%">Action</th>
+                                            <th>{{ __('admin.title') }}</th>
+                                            <th>{{ __('general.category') }}</th>
+                                            <th>{{ __('admin.author') }}</th>
+                                            <th>{{ __('admin.updated_at') }}</th>
+                                            <th>{{ __('admin.status') }}</th>
+                                            <th style="width: 10%">{{ __('admin.action') }}</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
                                             <th>ID</th>
                                             <th>Title</th>
                                             <th>Category</th>
@@ -62,7 +60,6 @@
                                     <tbody>
                                         @foreach ($allNews as $news)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $news->id }}</td>
                                                 <td>{{ $news->title }}</td>
                                                 <td>{{ $news->category->name }}</td>
@@ -77,6 +74,12 @@
                                                 <td>
                                                     <div
                                                         class="form-button-action d-flex justify-content-center align-items-center">
+                                                        <span data-bs-toggle="tooltip" title="Edit">
+                                                            <a href="{{ route('admin.news.edit', $news->id) }}" 
+                                                               class="btn btn-link btn-primary">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </span>
                                                         <span data-bs-toggle="tooltip" title="Delete">
                                                             <form action="{{ route('admin.news.destroy', $news->id) }}"
                                                                 id="deleteButton" data-id="{{ $news->id }}">

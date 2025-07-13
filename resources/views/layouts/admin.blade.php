@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,6 +9,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('components.admin-header')
+    
+    {{-- RTL Support --}}
+    @if(app()->getLocale() == 'ar')
+    <link rel="stylesheet" href="{{ asset('css/rtl.css') }}">
+    @endif
 </head>
 
 <body>
@@ -163,6 +168,11 @@
                 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                            {{-- Language Switcher --}}
+                            <li class="nav-item topbar-icon me-3">
+                                <x-language-switcher />
+                            </li>
+                            
                             <li class="nav-item topbar-icon dropdown hidden-caret me-4">
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
