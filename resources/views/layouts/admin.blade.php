@@ -24,8 +24,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="{{ route('index') }}" class="logo">
-                        <img src="{{ asset('admin/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                            class="navbar-brand" height="20" />
+                        <img src="{{ asset('admin/img/kaiadmin/logo_light.jpg') }}" alt="navbar brand"
+                            class="navbar-brand" height="60" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -106,6 +106,36 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <li class="nav-item {{ Route::is('admin.robots-txt.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.robots-txt.index') }}">
+                                    <i class="fas fa-robot"></i>
+                                    <p>Robots.txt</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::is('admin.site-settings.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.site-settings.index') }}">
+                                    <i class="fas fa-cogs"></i>
+                                    <p>إعدادات الموقع والشركة</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::is('admin.about-us.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.about-us.index') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>About Us</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::is('admin.advisory-board.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.advisory-board.index') }}">
+                                    <i class="fas fa-user-tie"></i>
+                                    <p>Advisory Board</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::is('admin.privacy-policy.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.privacy-policy.index') }}">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <p>Privacy Policy</p>
+                                </a>
                             </li>
                         @endif
                         @if (auth()->user()->hasRole('Writer') || auth()->user()->hasRole('Super Admin'))
@@ -251,7 +281,7 @@
             <footer class="footer">
                 <div class="container-fluid d-flex justify-content-between">
                     <nav class="pull-left">
-                        <ul class="nav">
+                        {{-- <ul class="nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="http://www.themekita.com">
                                     ThemeKita
@@ -263,16 +293,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#"> Licenses </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </nav>
                     <div class="copyright">
-                        2024, made with <i class="fa fa-heart heart text-danger"></i> by
-                        <a href="http://www.themekita.com">ThemeKita</a>
+                        2025, made with <i class="fa fa-heart heart text-danger"></i> by
+                        <a href="https://marketopiasystems.com/">MarketopiaTeam</a>
                     </div>
-                    <div>
+                    {{-- <div>
                         Distributed by
                         <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-                    </div>
+                    </div> --}}
                 </div>
             </footer>
         </div>

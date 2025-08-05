@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الخريطة</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اختبار الخريطة</h1>
+        <div>
+            <button id="reloadMap" class="btn btn-primary">إعادة تحميل الخريطة</button>
+            <button id="clearLocation" class="btn btn-danger">مسح الموقع</button>
+        </div>
+        <br>
+        <div id="map"></div>
+        <div id="coordinates" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+            <strong>الإحداثيات:</strong> <span id="coords">لم يتم تحديد موقع بعد</span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            console.log('Initializing map...');
+            
+            // Default location (Cairo, Egypt)
+            const defaultLat = 30.0444;
+            const defaultLng = 31.2357;
+            
+            // Initialize Leaflet map
+            map = L.map('map').setView([defaultLat, defaultLng], 13);
+            
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+            
+            // Add click listener
+            map.on('click', function(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+                addMarker([lat, lng]);
+                updateCoordinates(lat, lng);
+            });
+            
+            console.log('Map initialized successfully!');
+        }
+
+        function addMarker(location) {
+            // Remove existing marker
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            
+            // Add new marker
+            marker = L.marker(location, {draggable: true}).addTo(map);
+            
+            // Add drag listener
+            marker.on('dragend', function(e) {
+                const lat = e.target.getLatLng().lat;
+                const lng = e.target.getLatLng().lng;
+                updateCoordinates(lat, lng);
+            });
+            
+            map.setView(location, map.getZoom());
+        }
+
+        function updateCoordinates(lat, lng) {
+            document.getElementById('coords').textContent = `خط العرض: ${lat.toFixed(6)}, خط الطول: ${lng.toFixed(6)}`;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            console.log('Leaflet available:', typeof L !== 'undefined');
+            
+            if (typeof L === 'undefined') {
+                document.getElementById('map').innerHTML = '<div style="text-align: center; padding: 50px;">فشل في تحميل مكتبة الخرائط</div>';
+                return;
+            }
+            
+            setTimeout(initMap, 500);
+        });
+
+        // Button handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('reloadMap').addEventListener('click', function() {
+                console.log('Reloading map...');
+                if (map) {
+                    map.remove();
+                    map = null;
+                    marker = null;
+                }
+                document.getElementById('coords').textContent = 'لم يتم تحديد موقع بعد';
+                setTimeout(initMap, 500);
+            });
+
+            document.getElementById('clearLocation').addEventListener('click', function() {
+                console.log('Clearing location...');
+                if (marker && map) {
+                    map.removeLayer(marker);
+                    marker = null;
+                    document.getElementById('coords').textContent = 'لم يتم تحديد موقع بعد';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

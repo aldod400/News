@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             NewsSeeder::class,
+            RobotsTxtSeeder::class,
+            SiteSettingsSeeder::class,
         ]);
 
         // News::factory(1000)

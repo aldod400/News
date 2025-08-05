@@ -2,8 +2,8 @@
 
 @section('content')
     <!-- Main Post Section Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
+    <div class="container-fluid py-3">
+        <div class="container py-3">
             <div class="row g-4">
                 <div class="col-lg-7 col-xl-8 mt-0">
                     @foreach ($latestNews->take(1) as $news)
@@ -30,7 +30,7 @@
                     @foreach ($popularNews->take(1) as $news)
                         <div class="bg-light p-4 rounded">
                             <div class="news-2">
-                                <h3 class="mb-4">Top Views</h3>
+                                <h3 class="mb-4">{{ __('general.top_views') }}</h3>
                             </div>
                             <div class="row g-4 align-items-center">
                                 <div class="col-md-6">
@@ -161,9 +161,9 @@
     <!-- Banner End --> --}}
 
     <!-- Latest News Start -->
-    <div class="container-fluid latest-news py-5">
-        <div class="container py-5">
-            <h2 class="mb-4">Latest News</h2>
+    <div class="container-fluid latest-news py-3">
+        <div class="container py-3">
+            <h2 class="mb-3">{{ __('general.latest_news') }}</h2>
             <div class="latest-news-carousel owl-carousel">
                 @foreach ($latestNews as $news)
                     <div class="latest-news-item">
@@ -190,13 +190,13 @@
     <!-- Latest News End -->
 
     <!-- Most Populer News Start -->
-    <div class="container-fluid populer-news py-5">
-        <div class="container py-5">
-            <div class="tab-class mb-4">
+    <div class="container-fluid populer-news py-3">
+        <div class="container py-3">
+            <div class="tab-class mb-3">
                 <div class="row g-4">
                     <div class="col-lg-8 col-xl-9">
-                        <div class="d-flex flex-column flex-md-row justify-content-md-between border-bottom mb-4">
-                            <h1 class="mb-4">Trending Category</h1>
+                        <div class="d-flex flex-column flex-md-row justify-content-md-between border-bottom mb-3">
+                            <h1 class="mb-3">Trending Category</h1>
                             <ul class="nav nav-pills d-inline-flex text-center">
                                 @foreach ($topCategory->take(3) as $key => $categories)
                                     <li class="nav-item mb-3">
@@ -209,11 +209,11 @@
                             </ul>
                         </div>
 
-                        <div class="tab-content mb-4">
+                        <div class="tab-content mb-3">
                             @foreach ($topCategory->take(3) as $key => $categories)
                                 <div id="tab-{{ $key + 1 }}"
                                     class="tab-pane fade show p-0 {{ $key === 0 ? 'active' : '' }}">
-                                    <div class="row g-4">
+                                    <div class="row g-3">
                                         @foreach ($categories->news()->where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->take(1)->get() as $news)
                                             <div class="col-lg-8">
                                                 <div class="position-relative rounded overflow-hidden">
@@ -224,7 +224,7 @@
                                                         {{ $categories->name }}
                                                     </div>
                                                 </div>
-                                                <div class="my-4">
+                                                <div class="my-3">
                                                     <a href="{{ route('news.show', $news->id) }}"
                                                         class="h4">{{ $news->title }}</a>
                                                 </div>
@@ -237,16 +237,16 @@
                                                         {{ $news->likes->count() }}
                                                     </div>
                                                 </div>
-                                                <p class="my-4">
+                                                <p class="my-3">
                                                     {!! Str::limit($news->content, 450, '...') !!}
                                                 </p>
                                             </div>
                                         @endforeach
                                         <div class="col-lg-4">
                                             @foreach ($categories->news()->where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->skip(1)->take(5)->get() as $news)
-                                                <div class="row g-4">
+                                                <div class="row g-3">
                                                     <div class="col-12">
-                                                        <div class="row g-4 align-items-center pb-4">
+                                                        <div class="row g-3 align-items-center pb-3">
                                                             <div class="col-5">
                                                                 <div class="overflow-hidden rounded">
                                                                     <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
@@ -256,7 +256,7 @@
                                                             </div>
                                                             <div class="col-7">
                                                                 <div class="features-content d-flex flex-column">
-                                                                    <p class="text-uppercase mb-2">{{ $categories->name }}
+                                                                    <p class="text-uppercase mb-1">{{ $categories->name }}
                                                                     </p>
                                                                     <a href="{{ route('news.show', $news->id) }}"
                                                                         class="h6">{{ $news->title }}</a>
@@ -286,7 +286,7 @@
                     </div>
 
                     <div class="col-lg-4 col-xl-3">
-                        <div class="row g-4">
+                        <div class="row g-3">
                             <div class="col-12">
                                 <div class="p-3 rounded border">
                                     @component('components.col-2')

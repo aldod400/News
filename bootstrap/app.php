@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'online.status' => \App\Http\Middleware\OnlineStatus::class,
+            'robots.admin' => \App\Http\Middleware\CheckRobotsTxtAccess::class,
         ]);
 
         // Apply SetLocale middleware globally

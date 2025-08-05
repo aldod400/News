@@ -30,6 +30,7 @@
 
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact-float.css') }}">
     
     {{-- RTL Support --}}
     @if(app()->getLocale() == 'ar')
@@ -47,10 +48,10 @@
 
     <!-- Navbar start -->
     <div class="container-fluid sticky-top px-0">
-        <div class="container-fluid topbar bg-dark d-none d-lg-block">
+        <div class="container-fluid topbar bg-primary d-none d-lg-block">
             <div class="container px-0">
-                <div class="topbar-top d-flex justify-content-between flex-lg-wrap">
-                    <div class="top-info flex-grow-0">
+            <div class="topbar-top d-flex justify-content-between flex-lg-wrap">
+                <div class="top-info flex-grow-0">
                         <span class="rounded-circle btn-sm-square bg-primary me-2">
                             <i class="fas fa-bolt text-white"></i>
                         </span>
@@ -94,6 +95,9 @@
                             <div class="scroll-content">
                                 <div class="navbar-nav mx-lg-4 border-top"
                                     style="white-space: nowrap; max-width: 60vw;">
+                                    <a href="{{ route('index') }}" class="nav-item nav-link mt-2 {{ request()->is('/') ? 'active text-primary' : '' }}">
+                                        <i class="fas fa-home me-1"></i>{{ __('general.home') }}
+                                    </a>
                                     @foreach (\App\Models\Category::all() as $categories)
                                         <a href="{{ route('news.viewCategory', $categories->id) }}"
                                             class="nav-item nav-link mt-2">{{ $categories->name }}</a>
@@ -118,21 +122,39 @@
     @yield('content')
 
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark footer py-5">
+    <div class="container-fluid bg-primary footer py-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-6 col-xl-3">
                     <div class="footer-item-1">
-                        <h4 class="mb-4 text-white">Get In Touch</h4>
-                        <p class="text-secondary line-h">
-                            Address: <span class="text-white">123 Demo St، ميامي، فلوريدا 45678، الولايات المتحدة.</span>
-                        </p>
-                        <p class="text-secondary line-h">
-                            Email: <span class="text-white">info@maritimetickers.com</span>
-                        </p>
-                        <p class="text-secondary line-h">
-                            Phone: <span class="text-white">00971559554277</span>
-                        </p>
+                        <h4 class="mb-4 text-white">{{ __('general.get_in_touch') }}</h4>
+                        @if(getCompanyInfo('address') || getCompanyInfo('city') || getCompanyInfo('country'))
+                            <p class="text-secondary line-h">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                <span class="text-white">{{ getCompanyFullAddress() ?: 'العنوان غير متوفر' }}</span>
+                            </p>
+                        @endif
+                        @if(getCompanyInfo('email'))
+                            <p class="text-secondary line-h">
+                                <i class="fas fa-envelope me-2"></i>
+                                <a href="mailto:{{ getCompanyInfo('email') }}" class="text-white text-decoration-none">
+                                    {{ getCompanyInfo('email') }}
+                                </a>
+                            </p>
+                        @endif
+                        @if(getCompanyInfo('phone'))
+                            <p class="text-secondary line-h">
+                                <i class="fas fa-phone me-2"></i>
+                                <a href="tel:{{ getCompanyInfo('phone') }}" class="text-white text-decoration-none">
+                                    {{ getCompanyInfo('phone') }}
+                                </a>
+                            </p>
+                        @endif
+                        <div class="mb-3">
+                            <a href="{{ route('contact') }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-envelope me-2"></i>{{ __('general.contact_us') }}
+                            </a>
+                        </div>
                         <div class="d-flex line-h">
                             <a class="btn btn-light me-2 btn-md-square rounded-circle" href="#"><i
                                     class="fab fa-twitter text-dark"></i></a>
@@ -149,7 +171,7 @@
                     <div class="footer-item-2">
                         @foreach (\App\Models\News::where('status', 'Accept')->orderBy('created_at', 'desc')->take(1)->get() as $news)
                             <div class="d-flex flex-column mb-4">
-                                <h4 class="mb-4 text-white">Recent News</h4>
+                                <h4 class="mb-4 text-white">{{ __('general.recent_news') }}</h4>
                                 <a href="{{ route('news.viewCategory', $news->category->id) }}">
                                     <div class="d-flex align-items-center">
                                         <div class="rounded-circle border border-2 border-primary overflow-hidden">
@@ -196,8 +218,24 @@
                 </div>
                 <div class="col-lg-6 col-xl-3">
                     <div class="d-flex flex-column text-start footer-item-3">
-                        <h4 class="mb-4 text-white">Categories</h4>
-                        @foreach (\App\Models\Category::orderBy('views', 'desc')->take(6)->get() as $categories)
+                        <h4 class="mb-4 text-white">{{ __('general.quick_links') }}</h4>
+                        <a class="btn-link text-white" href="{{ route('index') }}">
+                            <i class="fas fa-angle-right text-white me-2"></i> {{ __('general.home') }}
+                        </a>
+                        <a class="btn-link text-white" href="{{ route('about-us') }}">
+                            <i class="fas fa-angle-right text-white me-2"></i> {{ __('general.about_us') }}
+                        </a>
+                        <a class="btn-link text-white" href="{{ route('advisory-board') }}">
+                            <i class="fas fa-angle-right text-white me-2"></i> {{ __('general.advisory_board') }}
+                        </a>
+                        <a class="btn-link text-white" href="{{ route('privacy-policy') }}">
+                            <i class="fas fa-angle-right text-white me-2"></i> {{ __('general.privacy_policy') }}
+                        </a>
+                        <a class="btn-link text-white" href="{{ route('contact') }}">
+                            <i class="fas fa-angle-right text-white me-2"></i> {{ __('general.contact') }}
+                        </a>
+                        <h4 class="mb-4 text-white mt-4">{{ __('general.categories') }}</h4>
+                        @foreach (\App\Models\Category::orderBy('views', 'desc')->take(4)->get() as $categories)
                             <a class="btn-link text-white"
                                 href="{{ route('news.viewCategory', $categories->id) }}"><i
                                     class="fas fa-angle-right text-white me-2"></i> {{ $categories->name }}</a>
@@ -215,7 +253,7 @@
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     <span class="text-light"><a href="https://marketopiateam.com"><i
-                                class="fas fa-copyright text-light me-2"></i>Marketopia</a>, All right reserved.</span>
+                                class="fas fa-copyright text-light me-2"></i>MarketopiaTeam</a>, All right reserved.</span>
                 </div>
             </div>
         </div>
@@ -225,6 +263,14 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary border-2 border-white rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
+
+    <!-- Floating Contact Button -->
+    <div class="floating-contact">
+        <a href="{{ route('contact') }}" class="btn btn-primary">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <span class="tooltip-text">{{ __('general.contact_us') }}</span>
+    </div>
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

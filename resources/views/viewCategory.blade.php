@@ -30,7 +30,7 @@
                     @foreach ($popularNews->take(1) as $news)
                         <div class="bg-light p-4 rounded">
                             <div class="news-2">
-                                <h3 class="mb-4">Top Views</h3>
+                                <h3 class="mb-4">{{ __('general.top_views') }}</h3>
                             </div>
                             <div class="row g-4 align-items-center">
                                 <div class="col-md-6">
@@ -124,7 +124,7 @@
     <!-- Latest News Start -->
     <div class="container-fluid latest-news py-5">
         <div class="container py-5">
-            <h2 class="mb-4">Latest News</h2>
+            <h2 class="mb-4">{{ __('general.latest_news') }}</h2>
             <div class="latest-news-carousel owl-carousel">
                 @foreach ($latestNews as $news)
                     <div class="latest-news-item">

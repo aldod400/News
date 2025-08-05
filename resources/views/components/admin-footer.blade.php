@@ -45,4 +45,8 @@
     <script src="{{ asset('js/notifications.js') }}"></script>
 @endunless
 
+{{-- Page specific styles and scripts --}}
+@yield('styles')
+@yield('scripts')
+
 @yield('custom-footer')

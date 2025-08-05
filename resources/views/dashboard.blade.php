@@ -114,6 +114,62 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Robots.txt Status Card for Super Admin -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div class="card-title mb-0">
+                                    <i class="fas fa-robot me-2"></i>
+                                    حالة Robots.txt
+                                </div>
+                                <a href="{{ route('admin.robots-txt.index') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-cog"></i> إدارة
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    $activeRobotsTxt = \App\Models\RobotsTxt::where('is_active', true)->first();
+                                @endphp
+                                
+                                @if($activeRobotsTxt)
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h6 class="text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                Robots.txt نشط ويعمل
+                                            </h6>
+                                            <div class="bg-light p-3 rounded">
+                                                <pre style="font-size: 12px; max-height: 150px; overflow-y: auto; margin: 0;">{{ format_robots_txt_preview($activeRobotsTxt->content, 300) }}</pre>
+                                            </div>
+                                            <small class="text-muted">
+                                                آخر تحديث: {{ $activeRobotsTxt->updated_at->format('Y-m-d H:i') }}
+                                            </small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="text-center">
+                                                <a href="{{ url('/robots.txt') }}" target="_blank" class="btn btn-outline-primary">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                    عرض Robots.txt
+                                                </a>
+                                                <div class="mt-3">
+                                                    <span class="badge bg-success">نشط</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        لا يوجد robots.txt نشط. يُنصح بإنشاء واحد لتحسين SEO.
+                                        <a href="{{ route('admin.robots-txt.index') }}" class="alert-link">إنشاء الآن</a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
 
             @if (auth()->user()->hasRole('Writer'))

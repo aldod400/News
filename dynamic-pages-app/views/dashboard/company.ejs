@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Section</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <% include ../layout/header %>
+    </header>
+    <main>
+        <h1>Company</h1>
+        <nav>
+            <ul>
+                <li><a href="/company/about">About</a></li>
+                <li><a href="/company/advisory-board">Advisory Board</a></li>
+                <li><a href="/company/contact-us">Contact Us</a></li>
+                <li><a href="/company/privacy-policy">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="company-content">
+            <%- body %>
+        </div>
+    </main>
+    <footer>
+        <% include ../layout/footer %>
+    </footer>
+    <script src="/js/main.js"></script>
+</body>
+</html>
