@@ -1,303 +1,207 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Main Post Section Start -->
-    <div class="container-fluid py-3">
-        <div class="container py-3">
-            <div class="row g-4">
-                <div class="col-lg-7 col-xl-8 mt-0">
-                    @foreach ($latestNews->take(1) as $news)
-                        <div class="position-relative overflow-hidden rounded">
-                            <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                class="img-fluid rounded img-zoomin w-100" alt="" style="height: 475px" />
-                            <div class="d-flex justify-content-center px-4 position-absolute flex-wrap"
-                                style="bottom: 10px; left: 0">
-                                <div class="text-white me-4"><i class="fa fa-clock"></i>
-                                    {{ $news->created_at->translatedFormat('d F Y') }}</div>
-                                <div class="text-white me-4"><i class="fa fa-eye"></i> {{ $news->views }}</div>
-                                <div class="text-white me-4"><i class="fa fa-thumbs-up"></i> {{ $news->likes->count() }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-bottom py-3">
-                            <a href="{{ route('news.show', $news->id) }}"
-                                class="display-4 text-dark mb-0 link-hover">{{ $news->title }}</a>
-                        </div>
-                        <p class="mt-3 mb-4">
-                            {!! Str::limit($news->content, 450, '...') !!}
-                        </p>
-                    @endforeach
-                    @foreach ($popularNews->take(1) as $news)
-                        <div class="bg-light p-4 rounded">
-                            <div class="news-2">
-                                <h3 class="mb-4">{{ __('general.top_views') }}</h3>
-                            </div>
-                            <div class="row g-4 align-items-center">
-                                <div class="col-md-6">
-                                    <div class="rounded overflow-hidden">
-                                        <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                            class="img-fluid rounded img-zoomin w-100" alt="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex flex-column">
-                                        <a href="{{ route('news.show', $news->id) }}" class="h3">{{ $news->title }}</a>
-                                        <p class="mb-0 fs-5 ms-1">
-                                            <i class="fa fa-clock">
-                                                {{ $news->created_at->translatedFormat('d F Y H:i') }}</i>
-                                        </p>
-                                        <p class="mb-0 fs-5 ms-1">
-                                            <i class="fa fa-eye"> {{ $news->views }} Views</i>
-                                        </p>
-                                        <p class="mb-0 fs-5 ms-1">
-                                            <i class="fa fa-thumbs-up">
-                                                {{ $news->likes->count() }} Likes</i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 pt-0">
-                        <div class="row g-4">
-                            @foreach ($latestNews->skip(1)->take(1) as $news)
-                                <div class="col-12">
-                                    <div class="rounded overflow-hidden">
-                                        <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                            class="img-fluid rounded img-zoomin w-100" alt="" />
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column">
-                                        <a href="{{ route('news.show', $news->id) }}"
-                                            class="h4 mb-2">{{ $news->title }}</a>
-                                        <p class="fs-5 mb-0">
-                                            <i class="fa fa-clock">
-                                                {{ $news->created_at->translatedFormat('d F Y H:i') }}</i>
-                                        </p>
-                                        <p class="fs-5 mb-0">
-                                            <i class="fa fa-eye"> {{ $news->views }}</i>
-                                        </p>
-                                        <p class="fs-5 mb-0">
-                                            <i class="fa fa-thumbs-up">
-                                                {{ $news->likes->count() }}</i>
-                                        </p>
-                                    </div>
-                                </div>
-                            @endforeach
-                            @foreach ($latestNews->skip(2)->take(5) as $news)
-                                <div class="col-12">
-                                    <div class="row g-4 align-items-center">
-                                        <div class="col-5">
-                                            <div class="overflow-hidden rounded">
-                                                <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                                    class="img-zoomin img-fluid rounded w-100" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            <div class="features-content d-flex flex-column">
-                                                <a href="{{ route('news.show', $news->id) }}"
-                                                    class="h6">{{ $news->title }}</a>
-                                                <small><i class="fa fa-clock">
-                                                        {{ $news->created_at->translatedFormat('d F Y H:i') }} </i>
-                                                </small>
-                                                <small><i class="fa fa-eye"> {{ $news->views }}</i></small>
-                                                <small>
-                                                    <i class="fa fa-thumbs-up">
-                                                        {{ $news->likes->count() }}</i>
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Main Post Section End -->
-
-    {{-- <!-- Banner Start -->
-    <div class="container-fluid py-5 my-5"
-        style="
-    background: linear-gradient(
-      rgba(202, 203, 185, 1),
-      rgba(202, 203, 185, 1)
-    );
-  ">
-        <div class="container">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-7">
-                    <h1 class="mb-4 text-primary">Newsers</h1>
-                    <h1 class="mb-4">Get Every Weekly Updates</h1>
-                    <p class="text-dark mb-4 pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text
-                        ever since the 1500s, when an unknown printer took a galley
-                    </p>
-                    <div class="position-relative mx-auto">
-                        <input class="form-control w-100 py-3 rounded-pill" type="email"
-                            placeholder="Your Busines Email" />
-                        <button type="submit"
-                            class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100"
-                            style="top: 0; right: 0">
-                            Subscribe Now
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="rounded">
-                        <img src="{{ asset('th/img/banner-img.jpg') }}" class="img-fluid rounded w-100 rounded"
-                            alt="" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner End --> --}}
-
-    <!-- Latest News Start -->
-    <div class="container-fluid latest-news py-3">
-        <div class="container py-3">
-            <h2 class="mb-3">{{ __('general.latest_news') }}</h2>
-            <div class="latest-news-carousel owl-carousel">
-                @foreach ($latestNews as $news)
-                    <div class="latest-news-item">
-                        <div class="bg-light rounded">
-                            <div class="rounded-top overflow-hidden">
-                                <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                    class="img-zoomin img-fluid rounded-top w-100" alt="" />
-                            </div>
-                            <div class="d-flex flex-column p-4">
-                                <a href="{{ route('news.show', $news->id) }}" class="h4">
-                                    {{ Str::limit($news->title, 35, '...') }}</a>
-                                <div class="d-flex justify-content-between">
-                                    <small class="small text-body">{{ 'by ' . $news->author->name }}</small>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                        {{ $news->created_at->translatedFormat('j F Y') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!-- Latest News End -->
-
-    <!-- Most Populer News Start -->
-    <div class="container-fluid populer-news py-3">
-        <div class="container py-3">
-            <div class="tab-class mb-3">
+        <!-- Hero Section Start -->
+        <div class="container-fluid py-4">
+            <div class="container">
                 <div class="row g-4">
-                    <div class="col-lg-8 col-xl-9">
-                        <div class="d-flex flex-column flex-md-row justify-content-md-between border-bottom mb-3">
-                            <h1 class="mb-3">Trending Category</h1>
-                            <ul class="nav nav-pills d-inline-flex text-center">
-                                @foreach ($topCategory->take(3) as $key => $categories)
-                                    <li class="nav-item mb-3">
-                                        <a class="d-flex py-2 bg-light rounded-pill me-2" data-bs-toggle="pill"
-                                            href="#tab-{{ $key + 1 }}">
-                                            <span class="text-dark" style="width: 100px">{{ $categories->name }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <!-- Main News -->
+                    <div class="col-lg-8">
+                        @foreach ($latestNews->take(1) as $news)
+                            <div class="position-relative overflow-hidden rounded">
+                                <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
+                                    class="img-fluid w-100" alt="" style="height: 500px; object-fit: cover;" />
+                                <div class="position-absolute w-100 h-100 d-flex align-items-end"
+                                    style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); top: 0; left: 0;">
+                                    <div class="text-white p-4">
+                                        <span class="bg-primary px-2 py-1 rounded text-white small">{{ $news->category->name }}</span>
+                                        <a href="{{ route('news.show', $news->id) }}"><h2 class="text-white mt-2 mb-0">{{ $news->title }}</h2></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
 
-                        <div class="tab-content mb-3">
-                            @foreach ($topCategory->take(3) as $key => $categories)
-                                <div id="tab-{{ $key + 1 }}"
-                                    class="tab-pane fade show p-0 {{ $key === 0 ? 'active' : '' }}">
-                                    <div class="row g-3">
-                                        @foreach ($categories->news()->where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->take(1)->get() as $news)
-                                            <div class="col-lg-8">
-                                                <div class="position-relative rounded overflow-hidden">
-                                                    <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                                        class="img-zoomin img-fluid rounded w-100" alt="" />
-                                                    <div class="position-absolute text-white px-4 py-2 bg-primary rounded"
-                                                        style="top: 20px; right: 20px">
-                                                        {{ $categories->name }}
-                                                    </div>
-                                                </div>
-                                                <div class="my-3">
-                                                    <a href="{{ route('news.show', $news->id) }}"
-                                                        class="h4">{{ $news->title }}</a>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="text-dark me-4"><i class="fa fa-clock"></i>
-                                                        {{ $news->created_at->translatedFormat('d F Y') }}</div>
-                                                    <div class="text-dark me-4"><i class="fa fa-eye"></i>
-                                                        {{ $news->views }}</div>
-                                                    <div class="text-dark me-4"><i class="fa fa-thumbs-up"></i>
-                                                        {{ $news->likes->count() }}
-                                                    </div>
-                                                </div>
-                                                <p class="my-3">
-                                                    {!! Str::limit($news->content, 450, '...') !!}
-                                                </p>
+                    <!-- Side News -->
+                    <div class="col-lg-4">
+                        <div class="row g-3 h-100">
+                            @foreach ($latestNews->skip(1)->take(3) as $news)
+                                <div class="col-12">
+                                    <div class="position-relative overflow-hidden rounded h-100" style="min-height: 160px;">
+                                        <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
+                                            class="img-fluid w-100 h-100" alt="" style="object-fit: cover;" />
+                                        <div class="position-absolute w-100 h-100 d-flex align-items-end"
+                                            style="background: linear-gradient(transparent, rgba(0,0,0,0.7)); top: 0; left: 0;">
+                                           <a href="{{ route('news.show', $news->id) }}">
+                                             <div class="text-white p-3">
+                                                <span class="bg-primary px-2 py-1 rounded text-white small">{{ $news->category->name }}</span>
+                                                <h6 class="text-white mt-1 mb-0">{{ Str::limit($news->title, 60, '...') }}</h6>
                                             </div>
-                                        @endforeach
-                                        <div class="col-lg-4">
-                                            @foreach ($categories->news()->where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->skip(1)->take(5)->get() as $news)
-                                                <div class="row g-3">
-                                                    <div class="col-12">
-                                                        <div class="row g-3 align-items-center pb-3">
-                                                            <div class="col-5">
-                                                                <div class="overflow-hidden rounded">
-                                                                    <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                                                        class="img-zoomin img-fluid rounded w-100"
-                                                                        alt="" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-7">
-                                                                <div class="features-content d-flex flex-column">
-                                                                    <p class="text-uppercase mb-1">{{ $categories->name }}
-                                                                    </p>
-                                                                    <a href="{{ route('news.show', $news->id) }}"
-                                                                        class="h6">{{ $news->title }}</a>
-                                                                    <small class="text-body d-block"><i
-                                                                            class="fas fa-calendar-alt me-1"></i>
-                                                                        {{ $news->created_at->translatedFormat('j F Y') }}
-                                                                    </small>
-                                                                    <small class="text-body d-block"><i
-                                                                            class="fas fa-eye me-1"></i>
-                                                                        {{ $news->views }}
-                                                                    </small>
-                                                                    <small class="text-body d-block"><i
-                                                                            class="fas fa-thumbs-up me-1"></i>
-                                                                        {{ $news->likes->count() }}
-                                                                    </small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                           </a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero Section End -->
 
-                    <div class="col-lg-4 col-xl-3">
+        <!-- News Sections Grid -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <!-- Marine News Room -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4">{{ __('general.marine_news_room') }}</h3>
                         <div class="row g-3">
-                            <div class="col-12">
-                                <div class="p-3 rounded border">
-                                    @component('components.col-2')
-                                    @endcomponent
+                            @php
+    $marineCategory = \App\Models\Category::where('name', 'LIKE', '%Marine%')->first() ??
+        \App\Models\Category::first();
+    $marineNews = $marineCategory ? $marineCategory->news()
+        ->where('status', 'Accept')
+        ->latest()
+        ->take(4)
+        ->get() : collect();
+                            @endphp
+                            @foreach ($marineNews as $news)
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="news-card h-100">
+                                        <div class="position-relative overflow-hidden">
+                                            <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
+                                                class="card-img-top" style="height: 200px; object-fit: cover;" alt="">
+                                            <span class="position-absolute category-badge text-white px-2 py-1 rounded"
+                                                style="top: 10px; left: 10px;">{{ __('general.home') }}</span>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <h6 class="card-title mb-0">
+                                                <a href="{{ route('news.show', $news->id) }}" class="news-link">
+                                                    {{ Str::limit($news->title, 60, '...') }}
+                                                </a>
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exclusive -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4">{{ __('general.exclusive') }}</h3>
+                        <div class="row g-3">
+                            @php
+    $exclusiveNews = \App\Models\News::where('status', 'Accept')
+        ->withCount('likes')
+        ->orderBy('likes_count', 'desc')
+        ->take(3)
+        ->get();
+                            @endphp
+                            @foreach ($exclusiveNews as $news)
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="news-card h-100">
+                                        <div class="position-relative overflow-hidden">
+                                            <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
+                                                class="card-img-top" style="height: 250px; object-fit: cover;" alt="">
+                                            <span class="position-absolute bg-secondary text-white px-2 py-1 rounded category-badge"
+                                                style="top: 10px; left: 10px;">{{ __('general.exclusive') }}</span>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <h6 class="card-title mb-0">
+                                                <a href="{{ route('news.show', $news->id) }}" class="news-link">
+                                                    {{ $news->title }}
+                                                </a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ports -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4">{{ __('general.ports') }}</h3>
+                        <div class="row g-3">
+                            @php
+    $portsCategory = \App\Models\Category::where('name', 'LIKE', '%Port%')->first() ??
+        \App\Models\Category::skip(1)->first();
+    $portsNews = $portsCategory ? $portsCategory->news()
+        ->where('status', 'Accept')
+        ->latest()
+        ->take(2)
+        ->get() : collect();
+                            @endphp
+
+                            <div class="col-lg-8">
+                                @if($portsNews->first())
+                                    @php $mainNews = $portsNews->first(); @endphp
+                                    <div class="position-relative overflow-hidden rounded">
+                                        <img src="{{ $mainNews->image ? asset('storage/images/' . $mainNews->image) : asset('img/noimg.jpg') }}"
+                                            class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="">
+                                        <div class="position-absolute w-100 h-100 d-flex align-items-end"
+                                            style="background: linear-gradient(transparent, rgba(0,0,0,0.7)); top: 0; left: 0;">
+                                            <div class="text-white p-4">
+                                                <span class="bg-primary px-2 py-1 rounded text-white small">{{ __('general.home') }}</span>
+                                                <h5 class="text-white mt-2 mb-0">{{ $mainNews->title }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="col-lg-4">
+                                @if($portsNews->count() > 1)
+                                    @php $sideNews = $portsNews->skip(1)->first(); @endphp
+                                    <div class="position-relative overflow-hidden rounded h-100">
+                                        <img src="{{ $sideNews->image ? asset('storage/images/' . $sideNews->image) : asset('img/noimg.jpg') }}"
+                                            class="img-fluid w-100 h-100" style="object-fit: cover;" alt="">
+                                        <div class="position-absolute w-100 h-100 d-flex align-items-end"
+                                            style="background: linear-gradient(transparent, rgba(0,0,0,0.7)); top: 0; left: 0;">
+                                            <div class="text-white p-3">
+                                                <span class="bg-primary px-2 py-1 rounded text-white small">{{ __('general.home') }}</span>
+                                                <h6 class="text-white mt-1 mb-0">{{ $sideNews->title }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Categories Grid -->
+                <div class="row">
+                    @foreach ($topCategory->take(8) as $category)
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="text-center">
+                                <h5 class="mb-3">{{ $category->name }}</h5>
+                                @php
+        $categoryNews = $category->news()
+            ->where('status', 'Accept')
+            ->latest()
+            ->take(1)
+            ->first();
+                                @endphp
+                                @if($categoryNews)
+                                    <div class="position-relative overflow-hidden rounded mb-3">
+                                        <img src="{{ $categoryNews->image ? asset('storage/images/' . $categoryNews->image) : asset('img/noimg.jpg') }}"
+                                            class="img-fluid w-100" style="height: 200px; object-fit: cover;" alt="">
+                                        <span class="position-absolute bg-dark text-white px-2 py-1 rounded"
+                                            style="top: 10px; left: 10px; font-size: 12px;">{{ $category->name }}</span>
+                                    </div>
+                                    <h6>{{ Str::limit($categoryNews->title, 50, '...') }}</h6>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Most Populer News End -->
 @endsection

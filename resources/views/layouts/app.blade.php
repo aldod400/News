@@ -31,6 +31,7 @@
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact-float.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home-style.css') }}">
     
     {{-- RTL Support --}}
     @if(app()->getLocale() == 'ar')
@@ -48,40 +49,12 @@
 
     <!-- Navbar start -->
     <div class="container-fluid sticky-top px-0">
-        <div class="container-fluid topbar bg-primary d-none d-lg-block">
-            <div class="container px-0">
-            <div class="topbar-top d-flex justify-content-between flex-lg-wrap">
-                <div class="top-info flex-grow-0">
-                        <span class="rounded-circle btn-sm-square bg-primary me-2">
-                            <i class="fas fa-bolt text-white"></i>
-                        </span>
-                        <div class="pe-2 me-3 border-end border-white d-flex align-items-center">
-                            <p class="mb-0 text-white fs-6 fw-normal">{{ __('general.Maritimetekers') }}</p>
-                        </div>
-                        @foreach (\App\Models\News::where('status', 'Accept')->withCount('likes')->orderBy('likes_count', 'desc')->take(1)->get() as $news)
-                            <div class="overflow-hidden" style="width: 735px">
-                                <div id="note" class="ps-2">
-                                    <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                        class="img-fluid rounded-circle border border-3 border-primary me-2"
-                                        style="width: 30px; height: 30px" alt="" />
-                                    <a href="{{ route('news.show', $news->id) }}">
-                                        <p class="text-white mb-0 link-hover">
-                                            {{ $news->title }}
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container-fluid bg-light">
             <div class="container px-0">
                 <nav class="navbar navbar-light navbar-expand-xl">
                     <a href="{{ route('index') }}" class="navbar-brand d-block">
                         <img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"
-                            style="max-width: 60px;">
+                            style="max-width: 100px;">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -285,6 +258,7 @@
     {{-- Custom JS --}}
     <script src="{{ asset('js/shortcut.js') }}"></script>
     <script src="{{ asset('js/scroll.js') }}"></script>
+    <script src="{{ asset('js/home-interactions.js') }}"></script>
 </body>
 
 </html>

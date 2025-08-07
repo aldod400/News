@@ -17,9 +17,19 @@ return [
     'search_placeholder' => 'Search for news...',
     'latest_news' => 'Latest News',
     'recent_news' => 'Recent News',
+    'breaking' => 'Breaking',
     'popular_news' => 'Popular News',
     'top_news' => 'Top News',
     'top_views' => 'Top Views',
+    'featured_news' => 'Featured News',
+    'trending_now' => 'Trending Now',
+    'most_popular' => 'Most Popular',
+    'view_all' => 'View All',
+    'coming_soon_podcast' => 'Coming Soon Podcast',
+    'stay_tuned_for_latest_maritime_discussions' => 'Stay tuned for the latest maritime industry discussions and insights',
+    'marine_news_room' => 'Marine News Room',
+    'exclusive' => 'Exclusive',
+    'ports' => 'Ports',
     'read_more' => 'Read More',
     'written_by' => 'Written by',
     'our_story' => 'Our Story',
@@ -37,7 +47,7 @@ return [
     'arabic' => 'العربية',
     'english' => 'English',
     'Maritimetekers' => 'Maritimetekers',
-    
+
     // Common actions
     'active' => 'Active',
     'inactive' => 'Inactive',
@@ -53,7 +63,7 @@ return [
     'image' => 'Image',
     'name' => 'Name',
     'order' => 'Order',
-    
+
     // Privacy Policy
     'privacy_policy' => 'Privacy Policy',
     'privacy_policy_management' => 'Privacy Policy Management',
@@ -89,7 +99,7 @@ return [
     'have_questions' => 'Have Questions About Our Privacy Policy?',
     'privacy_policy_questions_text' => 'If you have any questions about our privacy policy, feel free to contact us.',
     'contact_us_for_questions' => 'Contact Us for Questions',
-    
+
     // Advisory Board
     'advisory_board_description' => 'Meet our distinguished advisory board members who guide and support our organization',
     'advisory_board_management' => 'Advisory Board Management',

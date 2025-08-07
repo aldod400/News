@@ -17,9 +17,19 @@ return [
     'search_placeholder' => 'ابحث عن الأخبار...',
     'latest_news' => 'آخر الأخبار',
     'recent_news' => 'الأخبار الحديثة',
+    'breaking' => 'عاجل',
     'popular_news' => 'الأخبار الشائعة',
     'top_news' => 'أهم الأخبار',
     'top_views' => 'الأكثر مشاهدة',
+    'featured_news' => 'الأخبار المميزة',
+    'trending_now' => 'الرائج الآن',
+    'most_popular' => 'الأكثر شعبية',
+    'view_all' => 'عرض الكل',
+    'coming_soon_podcast' => 'بودكاست قريباً',
+    'stay_tuned_for_latest_maritime_discussions' => 'ترقبوا أحدث المناقشات والرؤى في صناعة النقل البحري',
+    'marine_news_room' => 'غرفة الأخبار البحرية',
+    'exclusive' => 'حصري',
+    'ports' => 'الموانئ',
     'read_more' => 'اقرأ المزيد',
     'written_by' => 'كتب بواسطة',
     'our_story' => 'قصتنا',
@@ -37,7 +47,7 @@ return [
     'arabic' => 'العربية',
     'english' => 'English',
     'Maritimetekers' => 'خبراء الملاحة البحرية',
-    
+
     // Common actions
     'active' => 'نشط',
     'inactive' => 'غير نشط',
@@ -53,7 +63,7 @@ return [
     'image' => 'الصورة',
     'name' => 'الاسم',
     'order' => 'الترتيب',
-    
+
     // Privacy Policy
     'privacy_policy' => 'سياسة الخصوصية',
     'privacy_policy_management' => 'إدارة سياسة الخصوصية',
@@ -89,7 +99,7 @@ return [
     'have_questions' => 'لديك أسئلة حول سياسة الخصوصية؟',
     'privacy_policy_questions_text' => 'إذا كان لديك أي أسئلة حول سياسة الخصوصية، لا تتردد في التواصل معنا.',
     'contact_us_for_questions' => 'تواصل معنا للأسئلة',
-    
+
     // Advisory Board
     'advisory_board_description' => 'تعرف على أعضاء مجلسنا الاستشاري المتميزين الذين يوجهون ويدعمون مؤسستنا',
     'advisory_board_management' => 'إدارة المجلس الاستشاري',
