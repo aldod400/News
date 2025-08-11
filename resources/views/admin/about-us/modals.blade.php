@@ -4,9 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add Editorial Board Member</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ route('admin.about-us.store-editorial') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -64,7 +62,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Add Member</button>
                 </div>
             </form>
@@ -78,7 +76,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Editorial Board Member</h5>
-                <button type="button" class="close" data-dismiss="modal">
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
                     <span>&times;</span>
                 </button>
             </div>
@@ -140,7 +138,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Update Member</button>
                 </div>
             </form>
@@ -154,7 +152,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add Office</h5>
-                <button type="button" class="close" data-dismiss="modal">
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
                     <span>&times;</span>
                 </button>
             </div>
@@ -229,7 +227,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Add Office</button>
                 </div>
             </form>
@@ -243,7 +241,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Office</h5>
-                <button type="button" class="close" data-dismiss="modal">
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
                     <span>&times;</span>
                 </button>
             </div>
@@ -320,7 +318,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Update Office</button>
                 </div>
             </form>

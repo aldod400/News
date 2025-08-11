@@ -32,7 +32,7 @@
                         </h3>
                     </div>
                     <div class="card-body p-4">
-                        <form action="#" method="POST" id="contactForm">
+                        <form action="{{ route('contact.store') }}" method="POST" id="contactForm">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -59,9 +59,9 @@
                                 <textarea class="form-control" id="message" name="message" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
                                     <i class="fas fa-paper-plane me-2"></i>
-                                    إرسال الرسالة
+                                    <span class="btn-text">إرسال الرسالة</span>
                                 </button>
                             </div>
                         </form>
@@ -152,19 +152,136 @@
 @endsection
 
 @section('scripts')
+<!-- Add SweetAlert2 FIRST -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-// Contact form handling
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+console.log('Contact form script loading...');
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, looking for contact form...');
     
-    // Simple form validation and submission
-    const formData = new FormData(this);
+    // Contact form handling with AJAX
+    const contactForm = document.getElementById('contactForm');
+    console.log('Contact form found:', contactForm);
     
-    // Here you can add AJAX submission or other handling
-    alert('شكراً لك! تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.');
-    
-    // Reset form
-    this.reset();
+    if (contactForm) {
+        console.log('Adding event listener to contact form...');
+        
+        contactForm.addEventListener('submit', function(e) {
+            console.log('Form submission intercepted!');
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(form);
+            
+            console.log('Form data:', Object.fromEntries(formData));
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري الإرسال...';
+            
+            // Clear previous errors
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+            
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]');
+            console.log('CSRF token found:', csrfToken ? csrfToken.getAttribute('content') : 'NOT FOUND');
+            
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                alert('خطأ في النظام. يرجى إعادة تحميل الصفحة.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+                return;
+            }
+            
+            console.log('Sending AJAX request...');
+            
+            fetch('{{ route("contact.store") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken.getAttribute('content'),
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                console.log('Response received:', response);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    // Show success message
+                    Swal.fire({
+                        title: 'تم الإرسال بنجاح!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'حسناً',
+                        confirmButtonColor: '#28a745',
+                        timer: 5000,
+                        timerProgressBar: true
+                    });
+                    
+                    // Reset form
+                    form.reset();
+                } else {
+                    // Show error message
+                    Swal.fire({
+                        title: 'خطأ!',
+                        text: data.message || 'حدث خطأ أثناء إرسال الرسالة',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً',
+                        confirmButtonColor: '#dc3545'
+                    });
+                    
+                    // Show field errors
+                    if (data.errors) {
+                        Object.keys(data.errors).forEach(field => {
+                            const input = document.querySelector(`[name="${field}"]`);
+                            if (input) {
+                                input.classList.add('is-invalid');
+                                const errorDiv = document.createElement('div');
+                                errorDiv.classList.add('invalid-feedback');
+                                errorDiv.textContent = data.errors[field][0];
+                                input.parentNode.appendChild(errorDiv);
+                            }
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'خطأ!',
+                    text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+                    icon: 'error',
+                    confirmButtonText: 'حسناً',
+                    confirmButtonColor: '#dc3545'
+                });
+            })
+            .finally(() => {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+            });
+        });
+    } else {
+        console.error('Contact form not found!');
+        alert('خطأ: لم يتم العثور على نموذج الاتصال');
+    }
 });
+
+console.log('Contact form script loaded successfully');
 </script>
 @endsection

@@ -15,6 +15,8 @@ use App\Http\Controllers\SiteSettingsController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AdvisoryBoardController;
 use App\Http\Controllers\PrivacyPolicyController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 
 // All
 Route::get('/', [NewsController::class, 'index'])->name('index');
@@ -140,8 +142,15 @@ Route::middleware(['role:Super Admin'])->group(function () {
         Route::delete('/{id}', [PrivacyPolicyController::class, 'destroy'])->name('destroy');
         Route::get('/{id}/set-active', [PrivacyPolicyController::class, 'setActive'])->name('set-active');
     });
-    
-    // Test Map Route (for debugging)
+
+        // Contact Messages Management (Super Admin only)
+        Route::get('admin/contact-messages', 'App\Http\Controllers\Admin\ContactMessageController@index')->name('admin.contact-messages.index');
+        Route::get('admin/contact-messages/{id}', 'App\Http\Controllers\Admin\ContactMessageController@show')->name('admin.contact-messages.show');
+        Route::put('admin/contact-messages/{id}', 'App\Http\Controllers\Admin\ContactMessageController@update')->name('admin.contact-messages.update');
+        Route::delete('admin/contact-messages/{id}', 'App\Http\Controllers\Admin\ContactMessageController@destroy')->name('admin.contact-messages.destroy');
+        Route::post('admin/contact-messages/{id}/mark-read', 'App\Http\Controllers\Admin\ContactMessageController@markAsRead')->name('admin.contact-messages.mark-read');
+        Route::post('admin/contact-messages/{id}/mark-replied', 'App\Http\Controllers\Admin\ContactMessageController@markAsReplied')->name('admin.contact-messages.mark-replied');
+        Route::get('admin/contact-messages/api/unread-count', 'App\Http\Controllers\Admin\ContactMessageController@getUnreadCount')->name('admin.contact-messages.unread-count');    // Test Map Route (for debugging)
     Route::get('/admin/test-map', function () {
         return view('admin.test-map');
     })->name('admin.test-map');
@@ -162,6 +171,8 @@ Route::group(['middleware' => ['permission:Status News|Update Status News']], fu
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Writer
 Route::group(['middleware' => ['permission:Create News|Store News|Edit News|Update News|Draft']], function () {

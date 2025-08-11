@@ -6,7 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
 
 class SetLocale
 {
@@ -28,6 +30,9 @@ class SetLocale
         // Set the locale
         App::setLocale($locale);
         Session::put('locale', $locale);
+        
+        // Set Carbon locale as well for date formatting
+        Carbon::setLocale($locale === 'ar' ? 'ar' : 'en');
 
         return $next($request);
     }

@@ -138,6 +138,18 @@
                                 </a>
                             </li>
                         @endif
+
+                        <!-- Contact Messages -->
+                        @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+                            <li class="nav-item {{ Route::is('admin.contact-messages.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.contact-messages.index') }}">
+                                    <i class="fas fa-envelope"></i>
+                                    <p>رسائل الاتصال</p>
+                                    <span class="badge badge-danger" id="unread-messages-count" style="display: none;"></span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (auth()->user()->hasRole('Writer') || auth()->user()->hasRole('Super Admin'))
                             <li
                                 class="nav-item {{ Route::is('admin.users.*') || Route::is('news.draft') ? 'active' : '' }}">
@@ -309,6 +321,33 @@
     </div>
 
     @include('components.admin-footer')
+    
+    <!-- Contact Messages Notification -->
+    <script>
+    // Load unread messages count
+    function loadUnreadCount() {
+        @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        fetch('{{ route("admin.contact-messages.unread-count") }}')
+            .then(response => response.json())
+            .then(data => {
+                const badge = document.getElementById('unread-messages-count');
+                if (data.count > 0) {
+                    badge.textContent = data.count;
+                    badge.style.display = 'inline';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error loading unread count:', error));
+        @endif
+    }
+    
+    // Load count on page load
+    document.addEventListener('DOMContentLoaded', loadUnreadCount);
+    
+    // Refresh count every 30 seconds
+    setInterval(loadUnreadCount, 30000);
+    </script>
 </body>
 
 </html>

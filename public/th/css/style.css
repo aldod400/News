@@ -255,32 +255,109 @@
 /*** Latest News Start ***/
 .latest-news .latest-news-carousel.owl-carousel{
     position: relative;
+    margin-top: 20px;
 }
 
-.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev {
-    position: absolute;
-    top: -65px;
-    right: 70px;
-    font-size: 20px;
-    padding: 2px 20px;
-    transition: 0.5s;
-    margin-right: 10px;
-    border: 1px solid var(--bs-primary);
-    color: var(--bs-dark);
-    border-radius: 20px;
+/* تحسين للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+        position: relative;
+        top: 20px;
+        left: 0;
+        right: auto;
+        width: auto;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
 }
 
+/* تحسين للشاشات الكبيرة - الأزرار بجانب العنوان */
+@media (min-width: 769px) {
+    /* للغة الإنجليزية - الأزرار على اليمين (default) */
+    .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+        position: absolute;
+        top: -60px;
+        right: 0;
+        left: auto;
+        width: auto;
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+    
+    /* للغة العربية - الأزرار على اليسار (عكس الإنجليزية) */
+    html[dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+        right: auto !important;
+        left: 0 !important; /* الأزرار على الشمال في العربية */
+    }
+    
+    /* تأكيد إضافي للعربية */
+    body[dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav,
+    [dir="rtl"] body .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+        right: auto !important;
+        left: 0 !important;
+    }
+    
+    /* تأكيد أن الأزرار لن تتداخل مع المحتوى */
+    .latest-news .latest-news-carousel.owl-carousel {
+        margin-top: 30px;
+    }
+}
+
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev,
 .latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-next {
-    position: absolute;
-    top: -65px;
+    position: relative;
+    top: 0;
+    right: auto;
+    left: auto;
+    font-size: 18px;
+    padding: 0;
+    transition: all 0.3s ease;
+    border: 2px solid var(--bs-primary);
+    color: var(--bs-primary);
+    border-radius: 8px;
+    background: var(--bs-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev:hover,
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-next:hover {
+    background: var(--bs-primary);
+    color: var(--bs-white);
+    border-color: var(--bs-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* تحسين للغة العربية */
+[dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+    left: auto;
     right: 0;
-    font-size: 20px;
-    margin-left: 10px;
-    padding: 2px 20px;
-    transition: 0.5s;
-    border: 1px solid var(--bs-primary);
-    color: var(--bs-dark);
-    border-radius: 20px;
+}
+
+/* إخفاء الأزرار عندما تكون معطلة */
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev.disabled,
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-next.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev.disabled:hover,
+.latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-next.disabled:hover {
+    background: var(--bs-white);
+    color: var(--bs-primary);
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev:hover,
@@ -426,6 +503,22 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 /*** Footer End ***/
+
+/* إصلاح نهائي لموضع الأزرار في العربية - أولوية عالية */
+@media (min-width: 769px) {
+    [dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav,
+    html[dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav,
+    body[dir="rtl"] .latest-news .latest-news-carousel.owl-carousel .owl-nav {
+        position: absolute !important;
+        top: -60px !important;
+        right: auto !important;
+        left: 0 !important;
+        width: auto !important;
+        display: flex !important;
+        gap: 10px !important;
+        z-index: 10 !important;
+    }
+}
 
 
 

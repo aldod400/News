@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>{{ __('general.Maritimetekers') }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon" />
 
     <!-- Google Web Fonts -->
@@ -27,6 +28,9 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('th/css/style.css') }}" rel="stylesheet" />
+    
+    <!-- Carousel Fix Stylesheet -->
+    <link href="{{ asset('css/carousel-fix.css') }}" rel="stylesheet" />
 
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
@@ -54,7 +58,7 @@
                 <nav class="navbar navbar-light navbar-expand-xl">
                     <a href="{{ route('index') }}" class="navbar-brand d-block">
                         <img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"
-                            style="max-width: 100px;">
+                            style="max-width: 160px;">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -259,6 +263,9 @@
     <script src="{{ asset('js/shortcut.js') }}"></script>
     <script src="{{ asset('js/scroll.js') }}"></script>
     <script src="{{ asset('js/home-interactions.js') }}"></script>
+    
+    {{-- Page-specific scripts --}}
+    @yield('scripts')
 </body>
 
 </html>

@@ -1,0 +1,97 @@
+/* تحسينات إضافية للـ Latest News Carousel */
+
+.latest-news-header {
+    position: relative;
+    margin-bottom: 2rem;
+    min-height: 45px; /* لضمان المساحة الكافية للأزرار */
+}
+
+.latest-news-title {
+    font-weight: 700;
+    color: var(--bs-dark);
+    margin-bottom: 0;
+}
+
+.news-counter {
+    background: linear-gradient(45deg, var(--bs-primary), #0056b3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    border: none;
+    white-space: nowrap;
+}
+
+/* تأكيد موضع الأزرار */
+.latest-news .latest-news-carousel.owl-carousel .owl-nav {
+    z-index: 10;
+}
+
+/* تحسين responsive للعناوين */
+@media (max-width: 576px) {
+    .latest-news-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .latest-news-title {
+        font-size: 1.5rem;
+    }
+    
+    .news-counter {
+        align-self: flex-start;
+    }
+    
+    /* في الشاشات الصغيرة - إخفاء المساحة المحجوزة للأزرار */
+    .latest-news-header > div:last-child {
+        display: none !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .latest-news-header {
+        align-items: center !important;
+    }
+    
+    /* تصغير المساحة المحجوزة في الشاشات المتوسطة */
+    .latest-news-header > div:last-child {
+        width: 80px !important;
+    }
+}
+
+/* تحسين للـ carousel items */
+.latest-news-item {
+    height: 100%;
+}
+
+.latest-news-item .bg-light {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.latest-news-item .bg-light:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.latest-news-item .p-4 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* تحسين الروابط */
+.latest-news-item a {
+    transition: color 0.3s ease;
+}
+
+.latest-news-item a:hover {
+    color: var(--bs-primary) !important;
+}

@@ -21,7 +21,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Company Description</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.about-us.update-description') }}" method="POST">
+            <form action="{{ route('admin.about-us.update-description') }}" method="POST" id="descriptionForm">
                 @csrf
                 @method('PUT')
                 
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="updateDescBtn">
                     <i class="fas fa-save"></i> Update Description
                 </button>
             </form>
@@ -66,7 +66,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Editorial Board</h6>
-            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEditorialModal">
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addEditorialModal">
                 <i class="fas fa-plus"></i> Add Member
             </button>
         </div>
@@ -144,7 +144,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Offices</h6>
-            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addOfficeModal">
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addOfficeModal">
                 <i class="fas fa-plus"></i> Add Office
             </button>
         </div>
@@ -223,11 +223,48 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
-    // Initialize CKEditor
-    ClassicEditor.create(document.querySelector('#description_en')).catch(error => { console.error(error); });
-    ClassicEditor.create(document.querySelector('#description_ar')).catch(error => { console.error(error); });
+    $(document).ready(function() {
+        console.log('About Us page loaded');
+        
+        // Handle description form submission
+        $('#descriptionForm').on('submit', function(e) {
+            console.log('Description form submitted');
+            $('#updateDescBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Updating...');
+            return true;
+        });
+
+    // Manual modal trigger for compatibility
+    $(document).ready(function() {
+        // Debug log
+        console.log('About Us page loaded with Bootstrap:', typeof bootstrap !== 'undefined');
+        console.log('jQuery loaded:', typeof $ !== 'undefined');
+        
+        // Force modal to work with both data-toggle and data-bs-toggle
+        $('[data-bs-toggle="modal"], [data-toggle="modal"]').on('click', function(e) {
+            e.preventDefault();
+            var target = $(this).attr('data-bs-target') || $(this).attr('data-target');
+            console.log('Modal button clicked, target:', target);
+            
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                var modal = new bootstrap.Modal(document.querySelector(target));
+                modal.show();
+            } else if (typeof $.fn.modal !== 'undefined') {
+                $(target).modal('show');
+            } else {
+                // Fallback - show modal manually
+                $(target).addClass('show').css('display', 'block');
+                $('.modal-backdrop').remove();
+                $('body').append('<div class="modal-backdrop fade show"></div>');
+            }
+        });
+        
+        // Close modal handlers
+        $(document).on('click', '[data-bs-dismiss="modal"], [data-dismiss="modal"]', function() {
+            $(this).closest('.modal').removeClass('show').css('display', 'none');
+            $('.modal-backdrop').remove();
+        });
+    });
     
     // Edit Editorial Board Member
     $('.edit-editorial-btn').click(function() {

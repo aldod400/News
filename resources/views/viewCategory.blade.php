@@ -124,28 +124,47 @@
     <!-- Latest News Start -->
     <div class="container-fluid latest-news py-5">
         <div class="container py-5">
-            <h2 class="mb-4">{{ __('general.latest_news') }}</h2>
-            <div class="latest-news-carousel owl-carousel">
-                @foreach ($latestNews as $news)
-                    <div class="latest-news-item">
-                        <div class="bg-light rounded">
-                            <div class="rounded-top overflow-hidden">
-                                <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
-                                    class="img-zoomin img-fluid rounded-top w-100" alt="" />
-                            </div>
-                            <div class="d-flex flex-column p-4">
-                                <a href="{{ route('news.show', $news->id) }}" class="h4">
-                                    {{ Str::limit($news->title, 35, '...') }}</a>
-                                <div class="d-flex justify-content-between">
-                                    <small class="small text-body">{{ 'by ' . $news->author->name }}</small>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                        {{ $news->created_at->translatedFormat('j F Y') }}</small>
+            <div class="d-flex justify-content-between align-items-center mb-4 latest-news-header position-relative">
+                <div class="d-flex align-items-center gap-3">
+                    <h2 class="latest-news-title mb-0">{{ __('general.latest_news') }}</h2>
+                    <span class="news-counter">
+                        {{ $latestNews->count() }} 
+                        {{ app()->getLocale() == 'ar' ? ($latestNews->count() == 1 ? 'خبر' : 'أخبار') : ($latestNews->count() == 1 ? 'News' : 'News Items') }}
+                    </span>
+                </div>
+                <!-- مساحة فارغة للأزرار -->
+                <div style="width: 100px; height: 45px;"></div>
+            </div>
+            
+            @if($latestNews->count() > 0)
+                <div class="latest-news-carousel owl-carousel">
+                    @foreach ($latestNews as $news)
+                        <div class="latest-news-item">
+                            <div class="bg-light rounded">
+                                <div class="rounded-top overflow-hidden">
+                                    <img src="{{ $news->image ? asset('storage/images/' . $news->image) : asset('img/noimg.jpg') }}"
+                                        class="img-zoomin img-fluid rounded-top w-100" alt="{{ $news->title }}" 
+                                        style="height: 200px; object-fit: cover;" />
+                                </div>
+                                <div class="d-flex flex-column p-4">
+                                    <a href="{{ route('news.show', $news->id) }}" class="h4 text-decoration-none">
+                                        {{ Str::limit($news->title, 35, '...') }}</a>
+                                    <div class="d-flex justify-content-between mt-auto pt-2">
+                                        <small class="small text-body">{{ __('general.by') }} {{ $news->author->name }}</small>
+                                        <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
+                                            {{ $news->created_at->translatedFormat('j F Y') }}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="alert alert-warning text-center">
+                    <h5 class="mb-2"><i class="fas fa-info-circle"></i> {{ __('general.no_news_available') }}</h5>
+                    <p class="mb-0">{{ __('general.check_back_later') }}</p>
+                </div>
+            @endif
         </div>
     </div>
     <!-- Latest News End -->

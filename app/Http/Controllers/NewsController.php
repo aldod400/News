@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Events\NewsStatusUpdated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class NewsController extends Controller
 {
@@ -43,9 +44,30 @@ class NewsController extends Controller
 
     public function viewCategory(Category $categories)
     {
-        $latestNews = $categories->news()->where('status', 'Accept')->latest()->get();
-        $topNews = $categories->news()->where('status', 'Accept')->orderBy('views', 'desc')->get();
+        // جلب الأخبار مع التأكد من وجود author
+        $latestNews = $categories->news()
+            ->with('author')
+            ->where('status', 'Accept')
+            ->latest()
+            ->get();
+        
+        // إذا لم توجد أخبار في الفئة، اجلب آخر الأخبار من جميع الفئات
+        if ($latestNews->isEmpty()) {
+            $latestNews = News::with(['author', 'category'])
+                ->where('status', 'Accept')
+                ->latest()
+                ->take(8)
+                ->get();
+        }
+        
+        $topNews = $categories->news()
+            ->with('author')
+            ->where('status', 'Accept')
+            ->orderBy('views', 'desc')
+            ->get();
+        
         $popularNews = $categories->news()
+            ->with('author')
             ->where('status', 'Accept')
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')

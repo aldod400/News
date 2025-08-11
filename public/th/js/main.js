@@ -38,33 +38,39 @@
 
     // Latest-news-carousel
     $(".latest-news-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 2000,
+        autoplay: false, // تم إيقاف التشغيل التلقائي لتجربة أفضل
+        smartSpeed: 1000,
         center: false,
-        dots: true,
-        loop: true,
+        dots: false,
+        loop: false,
         margin: 25,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
+        nav: true,
+        navText: [
+            '<i class="bi bi-chevron-left"></i>',
+            '<i class="bi bi-chevron-right"></i>'
         ],
+        stagePadding: 0,
         responsiveClass: true,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1,
+                nav: true
             },
-            576:{
-                items:1
+            576: {
+                items: 2,
+                nav: true
             },
-            768:{
-                items:2
+            768: {
+                items: 2,
+                nav: true
             },
-            992:{
-                items:3
+            992: {
+                items: 3,
+                nav: true
             },
-            1200:{
-                items:4
+            1200: {
+                items: 4,
+                nav: true
             }
         }
     });
