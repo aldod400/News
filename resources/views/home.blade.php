@@ -6,15 +6,18 @@
             <div class="container text-center">
                 <div class="row justify-content-center">
                     <div class="col-12">
-                        <!-- Large Logo -->
-                        <img src="{{ asset('img/logo.png') }}" alt="Maritime Tickers Logo" 
-                             class="img-fluid mb-4" style="max-width: 280px; height: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
-                        
-                        <!-- Site Name -->
-                        <h1 class="site-name-header text-primary mb-2" style="font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 3.2rem; letter-spacing: 3px;">
-                            MARITIME TICKERS
-                        </h1>
-                        
+                        <div class="d-flex flex-column align-items-center" style="gap: 0.1rem;">
+                            <!-- Large Logo -->
+                            <img src="{{ asset('img/logo2.png') }}" alt="Maritime Tickers Logo" 
+                                 class="img-fluid mb-1" style="max-width: 280px; height: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+
+                            <!-- Site Name: closer to logo -->
+                            <h1 class="site-name-header mb-2" style="font-size: 3.2rem; margin-top: -30px;">
+                                MaritimeTickers
+                            </h1>
+                        </div>
+                    </div>
+                        </div>
                         <!-- Optional tagline -->
                         <p class="text-muted mt-3 mb-0" style="font-size: 1.2rem; font-weight: 400; max-width: 500px; margin: 0 auto;">
                             {{ __('general.latest_maritime_news') }}
@@ -26,7 +29,7 @@
         <!-- Main Header Logo Section End -->
 
         <!-- Hero Section Start -->
-        <div class="container-fluid py-custom">
+        <div class="container-fluid py-custom" style="margin-top: 3rem;">
             <div class="container-fluid section-container hero-container">
             <div class="container">
                 <div class="row mb-4">
