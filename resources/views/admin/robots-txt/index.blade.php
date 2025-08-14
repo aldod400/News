@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'إدارة Robots.txt')
+@section('title', __('admin.robots_txt_management'))
 
 @section('content')
 <div class="container-fluid">
@@ -8,9 +8,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">إدارة Robots.txt</h3>
+                    <h3 class="card-title">{{ __('admin.robots_txt_management') }}</h3>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-                        <i class="fas fa-plus"></i> إضافة جديد
+                        <i class="fas fa-plus"></i> {{ __('admin.add_new') }}
                     </button>
                 </div>
                 <div class="card-body">
@@ -33,10 +33,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>المحتوى</th>
-                                    <th>الحالة</th>
-                                    <th>تاريخ الإنشاء</th>
-                                    <th>العمليات</th>
+                                    <th>{{ __('admin.robots_content') }}</th>
+                                    <th>{{ __('admin.robots_status') }}</th>
+                                    <th>{{ __('admin.creation_date') }}</th>
+                                    <th>{{ __('admin.operations') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,9 +48,9 @@
                                         </td>
                                         <td>
                                             @if($robotsTxt->is_active)
-                                                <span class="badge bg-success">نشط</span>
+                                                <span class="badge bg-success">{{ __('admin.active') }}</span>
                                             @else
-                                                <span class="badge bg-secondary">غير نشط</span>
+                                                <span class="badge bg-secondary">{{ __('admin.inactive') }}</span>
                                             @endif
                                         </td>
                                         <td>{{ $robotsTxt->created_at->format('Y-m-d H:i') }}</td>
@@ -60,7 +60,7 @@
                                                     <form action="{{ route('admin.robots-txt.set-active', $robotsTxt) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('PATCH')
-                                                        <button type="submit" class="btn btn-sm btn-success" title="تفعيل">
+                                                        <button type="submit" class="btn btn-sm btn-success" title="{{ __('admin.activate') }}">
                                                             <i class="fas fa-check"></i>
                                                         </button>
                                                     </form>
@@ -69,15 +69,15 @@
                                                 <button type="button" class="btn btn-sm btn-primary" 
                                                         data-bs-toggle="modal" 
                                                         data-bs-target="#editModal{{ $robotsTxt->id }}"
-                                                        title="تعديل">
+                                                        title="{{ __('admin.edit') }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 
                                                 @if(!$robotsTxt->is_active)
-                                                    <form action="{{ route('admin.robots-txt.destroy', $robotsTxt) }}" method="POST" style="display: inline;" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                                    <form action="{{ route('admin.robots-txt.destroy', $robotsTxt) }}" method="POST" style="display: inline;" onsubmit="return confirm('{{ __('admin.confirm_delete_robots') }}')">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" title="حذف">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ __('admin.delete') }}">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -91,7 +91,7 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">تعديل Robots.txt</h5>
+                                                    <h5 class="modal-title">{{ __('admin.edit_robots') }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form action="{{ route('admin.robots-txt.update', $robotsTxt) }}" method="POST">
@@ -99,14 +99,14 @@
                                                     @method('PUT')
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="content{{ $robotsTxt->id }}" class="form-label">محتوى Robots.txt</label>
+                                                            <label for="content{{ $robotsTxt->id }}" class="form-label">{{ __('admin.robots_content') }}</label>
                                                             <textarea class="form-control" id="content{{ $robotsTxt->id }}" name="content" rows="15" required>{{ $robotsTxt->content }}</textarea>
-                                                            <div class="form-text">يمكنك استخدام قواعد robots.txt المعيارية</div>
+                                                            <div class="form-text">{{ __('admin.modify_content_as_needed') }}</div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                                                        <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('admin.cancel') }}</button>
+                                                        <button type="submit" class="btn btn-primary">{{ __('admin.save_changes') }}</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -114,7 +114,7 @@
                                     </div>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">لا توجد محتويات robots.txt</td>
+                                        <td colspan="5" class="text-center">{{ __('admin.no_robots_content') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -127,15 +127,15 @@
             @if($activeRobotsTxt)
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h4>Robots.txt الحالي النشط</h4>
+                        <h4>{{ __('admin.current_active_robots') }}</h4>
                     </div>
                     <div class="card-body">
                         <pre style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">{{ $activeRobotsTxt->content }}</pre>
                         <p class="text-muted">
-                            <small>آخر تحديث: {{ $activeRobotsTxt->updated_at->format('Y-m-d H:i:s') }}</small>
+                            <small>{{ __('admin.last_updated') }}: {{ $activeRobotsTxt->updated_at->format('Y-m-d H:i:s') }}</small>
                         </p>
                         <a href="{{ url('/robots.txt') }}" target="_blank" class="btn btn-outline-primary">
-                            <i class="fas fa-external-link-alt"></i> عرض Robots.txt المباشر
+                            <i class="fas fa-external-link-alt"></i> {{ __('admin.view_live_robots') }}
                         </a>
                     </div>
                 </div>
@@ -149,14 +149,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">إضافة Robots.txt جديد</h5>
+                <h5 class="modal-title">{{ __('admin.add_new_robots') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ route('admin.robots-txt.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="newContent" class="form-label">محتوى Robots.txt</label>
+                        <label for="newContent" class="form-label">{{ __('admin.robots_content') }}</label>
                         <textarea class="form-control" id="newContent" name="content" rows="15" required>User-agent: *
 Disallow: /admin/
 Disallow: /dashboard/
@@ -169,22 +169,22 @@ Allow: /
 
 # Sitemap
 Sitemap: {{ url('/sitemap.xml') }}</textarea>
-                        <div class="form-text">يمكنك تعديل هذا المحتوى حسب احتياجاتك</div>
+                        <div class="form-text">{{ __('admin.modify_content_as_needed') }}</div>
                     </div>
                     
                     <div class="alert alert-info">
-                        <h6>أمثلة على قواعد robots.txt:</h6>
+                        <h6>{{ __('admin.robots_examples') }}:</h6>
                         <ul class="mb-0">
-                            <li><code>User-agent: *</code> - ينطبق على جميع محركات البحث</li>
-                            <li><code>Disallow: /admin/</code> - منع الدخول لمجلد admin</li>
-                            <li><code>Allow: /</code> - السماح بالدخول لجميع الصفحات الأخرى</li>
-                            <li><code>Sitemap: {{ url('/sitemap.xml') }}</code> - رابط خريطة الموقع</li>
+                            <li><code>User-agent: *</code> - {{ __('admin.user_agent_all') }}</li>
+                            <li><code>Disallow: /admin/</code> - {{ __('admin.disallow_admin') }}</li>
+                            <li><code>Allow: /</code> - {{ __('admin.allow_all') }}</li>
+                            <li><code>Sitemap: {{ url('/sitemap.xml') }}</code> - {{ __('admin.sitemap_link') }}</li>
                         </ul>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="submit" class="btn btn-primary">حفظ</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('admin.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('admin.save') }}</button>
                 </div>
             </form>
         </div>

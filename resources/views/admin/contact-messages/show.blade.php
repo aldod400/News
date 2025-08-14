@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'عرض الرسالة')
+@section('title', __('admin.view_message'))
 
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-envelope"></i> عرض الرسالة
+            <i class="fas fa-envelope"></i> {{ __('admin.view_message') }}
         </h1>
         <a href="{{ route('admin.contact-messages.index') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> العودة للقائمة
+            <i class="fas fa-arrow-left"></i> {{ __('admin.back') }}
         </a>
     </div>
 
@@ -29,25 +29,25 @@
         <div class="col-lg-8">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">تفاصيل الرسالة</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('admin.message_details') }}</h6>
                     <div>
                         @if(!$message->is_read)
-                            <span class="badge badge-warning">جديد</span>
+                            <span class="badge badge-warning">{{ __('admin.new_messages') }}</span>
                         @elseif($message->is_replied)
-                            <span class="badge badge-success">تم الرد</span>
+                            <span class="badge badge-success">{{ __('admin.reply') }}</span>
                         @else
-                            <span class="badge badge-info">مقروء</span>
+                            <span class="badge badge-info">{{ __('admin.read') }}</span>
                         @endif
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
-                        <div class="col-sm-3"><strong>الاسم:</strong></div>
+                        <div class="col-sm-3"><strong>{{ __('general.name') }}:</strong></div>
                         <div class="col-sm-9">{{ $message->name }}</div>
                     </div>
                     
                     <div class="row mb-3">
-                        <div class="col-sm-3"><strong>البريد الإلكتروني:</strong></div>
+                        <div class="col-sm-3"><strong>{{ __('admin.email') }}:</strong></div>
                         <div class="col-sm-9">
                             <a href="mailto:{{ $message->email }}">{{ $message->email }}</a>
                         </div>
@@ -55,7 +55,7 @@
                     
                     @if($message->phone)
                     <div class="row mb-3">
-                        <div class="col-sm-3"><strong>رقم الهاتف:</strong></div>
+                        <div class="col-sm-3"><strong>{{ __('admin.phone_number_label') }}:</strong></div>
                         <div class="col-sm-9">
                             <a href="tel:{{ $message->phone }}">{{ $message->phone }}</a>
                         </div>
@@ -63,19 +63,19 @@
                     @endif
                     
                     <div class="row mb-3">
-                        <div class="col-sm-3"><strong>الموضوع:</strong></div>
+                        <div class="col-sm-3"><strong>{{ __('admin.subject_label') }}:</strong></div>
                         <div class="col-sm-9">{{ $message->subject }}</div>
                     </div>
                     
                     <div class="row mb-3">
-                        <div class="col-sm-3"><strong>تاريخ الإرسال:</strong></div>
+                        <div class="col-sm-3"><strong>{{ __('admin.send_date_label') }}:</strong></div>
                         <div class="col-sm-9">{{ $message->created_at->format('Y-m-d H:i:s') }}</div>
                     </div>
                     
                     <hr>
                     
                     <div class="mb-3">
-                        <strong>الرسالة:</strong>
+                        <strong>{{ __('admin.message_label') }}:</strong>
                         <div class="bg-light p-3 mt-2 rounded">
                             {!! nl2br(e($message->message)) !!}
                         </div>
@@ -83,17 +83,17 @@
                     
                     <!-- Quick Actions -->
                     <div class="mt-4">
-                        <h6>إجراءات سريعة:</h6>
+                        <h6>{{ __('admin.quick_actions') }}:</h6>
                         <div class="btn-group" role="group">
                             <a href="mailto:{{ $message->email }}?subject=Re: {{ $message->subject }}" 
                                class="btn btn-primary">
-                                <i class="fas fa-reply"></i> الرد عبر البريد
+                                <i class="fas fa-reply"></i> {{ __('admin.reply_via_email') }}
                             </a>
                             
                             @if(!$message->is_replied)
                             <button type="button" class="btn btn-success mark-replied-btn" 
                                     data-id="{{ $message->id }}">
-                                <i class="fas fa-check"></i> تعليم كمرد عليه
+                                <i class="fas fa-check"></i> {{ __('admin.mark_as_replied') }}
                             </button>
                             @endif
                             

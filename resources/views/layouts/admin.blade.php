@@ -110,31 +110,31 @@
                             <li class="nav-item {{ Route::is('admin.robots-txt.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.robots-txt.index') }}">
                                     <i class="fas fa-robot"></i>
-                                    <p>Robots.txt</p>
+                                    <p>{{ __('admin.robots_txt') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Route::is('admin.site-settings.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.site-settings.index') }}">
                                     <i class="fas fa-cogs"></i>
-                                    <p>إعدادات الموقع والشركة</p>
+                                    <p>{{ __('admin.site_settings') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Route::is('admin.about-us.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.about-us.index') }}">
                                     <i class="fas fa-info-circle"></i>
-                                    <p>About Us</p>
+                                    <p>{{ __('general.about_us') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Route::is('admin.advisory-board.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.advisory-board.index') }}">
                                     <i class="fas fa-user-tie"></i>
-                                    <p>Advisory Board</p>
+                                    <p>{{ __('general.advisory_board') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Route::is('admin.privacy-policy.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.privacy-policy.index') }}">
                                     <i class="fas fa-shield-alt"></i>
-                                    <p>Privacy Policy</p>
+                                    <p>{{ __('general.privacy_policy') }}</p>
                                 </a>
                             </li>
                         @endif
@@ -144,7 +144,7 @@
                             <li class="nav-item {{ Route::is('admin.contact-messages.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.contact-messages.index') }}">
                                     <i class="fas fa-envelope"></i>
-                                    <p>رسائل الاتصال</p>
+                                    <p>{{ __('admin.contact_messages') }}</p>
                                     <span class="badge badge-danger" id="unread-messages-count" style="display: none;"></span>
                                 </a>
                             </li>

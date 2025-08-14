@@ -151,10 +151,10 @@
                                             <div class="text-center">
                                                 <a href="{{ url('/robots.txt') }}" target="_blank" class="btn btn-outline-primary">
                                                     <i class="fas fa-external-link-alt"></i>
-                                                    عرض Robots.txt
+                                                    {{ __('admin.view_robots_txt') }}
                                                 </a>
                                                 <div class="mt-3">
-                                                    <span class="badge bg-success">نشط</span>
+                                                    <span class="badge bg-success">{{ __('admin.robots_status_active') }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,8 +162,8 @@
                                 @else
                                     <div class="alert alert-warning">
                                         <i class="fas fa-exclamation-triangle"></i>
-                                        لا يوجد robots.txt نشط. يُنصح بإنشاء واحد لتحسين SEO.
-                                        <a href="{{ route('admin.robots-txt.index') }}" class="alert-link">إنشاء الآن</a>
+                                        {{ __('admin.no_active_robots') }}
+                                        <a href="{{ route('admin.robots-txt.index') }}" class="alert-link">{{ __('admin.create_now') }}</a>
                                     </div>
                                 @endif
                             </div>

@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'رسائل الاتصال')
+@section('title', __('admin.contact_messages'))
 
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-envelope"></i> رسائل الاتصال
+            <i class="fas fa-envelope"></i> {{ __('admin.contact_messages') }}
             @if($unreadCount > 0)
-                <span class="badge badge-danger ml-2">{{ $unreadCount }} جديد</span>
+                <span class="badge badge-danger ml-2">{{ $unreadCount }} {{ __('admin.new_messages') }}</span>
             @endif
         </h1>
     </div>
@@ -27,7 +27,7 @@
     <!-- Messages Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">جميع الرسائل</h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{ __('admin.all_messages') }}</h6>
         </div>
         <div class="card-body">
             @if($messages->count() > 0)
@@ -35,12 +35,12 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>الحالة</th>
-                                <th>الاسم</th>
-                                <th>البريد الإلكتروني</th>
-                                <th>الموضوع</th>
-                                <th>تاريخ الإرسال</th>
-                                <th>الإجراءات</th>
+                                <th>{{ __('admin.message_status_header') }}</th>
+                                <th>{{ __('admin.sender_name') }}</th>
+                                <th>{{ __('admin.email') }}</th>
+                                <th>{{ __('admin.message_subject') }}</th>
+                                <th>{{ __('admin.send_date') }}</th>
+                                <th>{{ __('admin.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,11 +48,11 @@
                             <tr class="{{ !$message->is_read ? 'table-warning' : '' }}">
                                 <td class="text-center">
                                     @if(!$message->is_read)
-                                        <span class="badge badge-warning">جديد</span>
+                                        <span class="badge badge-warning">{{ __('admin.new_status') }}</span>
                                     @elseif($message->is_replied)
-                                        <span class="badge badge-success">تم الرد</span>
+                                        <span class="badge badge-success">{{ __('admin.replied_status') }}</span>
                                     @else
-                                        <span class="badge badge-info">مقروء</span>
+                                        <span class="badge badge-info">{{ __('admin.read_status') }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -74,30 +74,30 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('admin.contact-messages.show', $message->id) }}" 
-                                           class="btn btn-sm btn-primary" title="عرض">
+                                           class="btn btn-sm btn-primary" title="{{ __('admin.view_action') }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         
                                         @if(!$message->is_read)
                                         <button type="button" class="btn btn-sm btn-info mark-read-btn" 
-                                                data-id="{{ $message->id }}" title="تعليم كمقروء">
+                                                data-id="{{ $message->id }}" title="{{ __('admin.mark_as_read_action') }}">
                                             <i class="fas fa-check"></i>
                                         </button>
                                         @endif
                                         
                                         @if(!$message->is_replied)
                                         <button type="button" class="btn btn-sm btn-success mark-replied-btn" 
-                                                data-id="{{ $message->id }}" title="تعليم كمرد عليه">
+                                                data-id="{{ $message->id }}" title="{{ __('admin.mark_as_replied_action') }}">
                                             <i class="fas fa-reply"></i>
                                         </button>
                                         @endif
                                         
                                         <form action="{{ route('admin.contact-messages.destroy', $message->id) }}" 
                                               method="POST" class="d-inline"
-                                              onsubmit="return confirm('هل أنت متأكد من حذف هذه الرسالة؟')">
+                                              onsubmit="return confirm('{{ __('admin.confirm_delete_message') }}')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" title="حذف">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="{{ __('admin.delete_action') }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -116,8 +116,8 @@
             @else
                 <div class="text-center py-4">
                     <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                    <h5 class="text-muted">لا توجد رسائل حتى الآن</h5>
-                    <p class="text-muted">سيتم عرض الرسائل الواردة من نموذج الاتصال هنا.</p>
+                    <h5 class="text-muted">{{ __('admin.no_messages_yet') }}</h5>
+                    <p class="text-muted">{{ __('admin.messages_will_appear_here') }}</p>
                 </div>
             @endif
         </div>

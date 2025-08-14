@@ -28,7 +28,7 @@
                     <div class="card-header bg-primary text-white text-center">
                         <h3 class="mb-0">
                             <i class="fas fa-envelope me-2"></i>
-                            ارسل لنا رسالة
+                            {{ __('general.send_us_message') }}
                         </h3>
                     </div>
                     <div class="card-body p-4">
@@ -36,32 +36,32 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">الاسم <span class="text-danger">*</span></label>
+                                    <label for="name" class="form-label">{{ __('general.name') }} <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">البريد الإلكتروني <span class="text-danger">*</span></label>
+                                    <label for="email" class="form-label">{{ __('general.email') }} <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="phone" class="form-label">رقم الهاتف</label>
+                                    <label for="phone" class="form-label">{{ __('general.phone_number') }}</label>
                                     <input type="tel" class="form-control" id="phone" name="phone">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="subject" class="form-label">الموضوع <span class="text-danger">*</span></label>
+                                    <label for="subject" class="form-label">{{ __('general.subject') }} <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="subject" name="subject" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">الرسالة <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
+                                <label for="message" class="form-label">{{ __('general.message') }} <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required placeholder="{{ __('general.message_placeholder') }}"></textarea>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
                                     <i class="fas fa-paper-plane me-2"></i>
-                                    <span class="btn-text">إرسال الرسالة</span>
+                                    <span class="btn-text">{{ __('general.send_message') }}</span>
                                 </button>
                             </div>
                         </form>
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Disable button and show loading
             submitBtn.disabled = true;
             const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري الإرسال...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{{ __("general.sending") }}';
             
             // Clear previous errors
             document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!csrfToken) {
                 console.error('CSRF token not found');
-                alert('خطأ في النظام. يرجى إعادة تحميل الصفحة.');
+                alert('{{ __("general.system_error") }}');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalHTML;
                 return;
@@ -224,10 +224,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     // Show success message
                     Swal.fire({
-                        title: 'تم الإرسال بنجاح!',
-                        text: data.message,
+                        title: '{{ __("general.message_sent_successfully") }}',
+                        text: '{{ __("general.message_sent_success_text") }}',
                         icon: 'success',
-                        confirmButtonText: 'حسناً',
+                        confirmButtonText: '{{ __("general.ok") }}',
                         confirmButtonColor: '#28a745',
                         timer: 5000,
                         timerProgressBar: true
@@ -238,10 +238,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     // Show error message
                     Swal.fire({
-                        title: 'خطأ!',
-                        text: data.message || 'حدث خطأ أثناء إرسال الرسالة',
+                        title: '{{ __("general.error_occurred") }}',
+                        text: data.message || '{{ __("general.message_send_error") }}',
                         icon: 'error',
-                        confirmButtonText: 'حسناً',
+                        confirmButtonText: '{{ __("general.ok") }}',
                         confirmButtonColor: '#dc3545'
                     });
                     
@@ -263,10 +263,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Error:', error);
                 Swal.fire({
-                    title: 'خطأ!',
-                    text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+                    title: '{{ __("general.error_occurred") }}',
+                    text: '{{ __("general.unexpected_error") }}',
                     icon: 'error',
-                    confirmButtonText: 'حسناً',
+                    confirmButtonText: '{{ __("general.ok") }}',
                     confirmButtonColor: '#dc3545'
                 });
             })
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.error('Contact form not found!');
-        alert('خطأ: لم يتم العثور على نموذج الاتصال');
+        alert('{{ __("general.contact_form_not_found") }}');
     }
 });
 

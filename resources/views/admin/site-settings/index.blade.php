@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'إعدادات الموقع ومعلومات الشركة')
+@section('title', __('admin.site_settings_management'))
 
 @section('content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-cogs me-2"></i>
-                        إعدادات الموقع ومعلومات الشركة
+                        {{ __('admin.site_settings_management') }}
                     </h3>
                 </div>
                 <div class="card-body">
@@ -40,43 +40,43 @@
                             <div class="col-md-6">
                                 <h5 class="mb-3">
                                     <i class="fas fa-building text-primary"></i>
-                                    معلومات الشركة
+                                    {{ __('admin.company_info') }}
                                 </h5>
                                 
                                 <div class="form-group mb-3">
-                                    <label for="company_name" class="form-label">اسم الشركة <span class="text-danger">*</span></label>
+                                    <label for="company_name" class="form-label">{{ __('general.name') }} <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="company_name" name="settings[company_name]" 
                                            value="{{ \App\Models\SiteSetting::get('company_name', '') }}" required>
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="company_address" class="form-label">
-                                        عنوان الشركة <span class="text-danger">*</span>
-                                        <small class="text-muted">(سيتم تحديثه تلقائياً عند اختيار موقع على الخريطة)</small>
+                                        {{ __('admin.company_address') }} <span class="text-danger">*</span>
+                                        <small class="text-muted">({{ __('admin.address_update_note') }})</small>
                                     </label>
                                     <div class="input-group">
                                         <textarea class="form-control" id="company_address" name="settings[company_address]" rows="3" required>{{ \App\Models\SiteSetting::get('company_address', '') }}</textarea>
-                                        <button type="button" class="btn btn-outline-secondary" id="updateAddressBtn" title="تحديث العنوان من الخريطة">
+                                        <button type="button" class="btn btn-outline-secondary" id="updateAddressBtn" title="{{ __('admin.update_address_from_map') }}">
                                             <i class="fas fa-sync-alt"></i>
                                         </button>
                                     </div>
                                     <small class="form-text text-info">
                                         <i class="fas fa-info-circle"></i>
-                                        انقر على الخريطة لتحديث العنوان تلقائياً، أو استخدم زر التحديث لتحديث العنوان من الإحداثيات الحالية
+                                        {{ __('admin.map_info_text') }}
                                     </small>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_city" class="form-label">المدينة <span class="text-danger">*</span></label>
+                                            <label for="company_city" class="form-label">{{ __('admin.city') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="company_city" name="settings[company_city]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_city', '') }}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_country" class="form-label">الدولة <span class="text-danger">*</span></label>
+                                            <label for="company_country" class="form-label">{{ __('admin.country') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="company_country" name="settings[company_country]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_country', '') }}" required>
                                         </div>
@@ -86,14 +86,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_phone" class="form-label">رقم الهاتف</label>
+                                            <label for="company_phone" class="form-label">{{ __('admin.phone_number') }}</label>
                                             <input type="text" class="form-control" id="company_phone" name="settings[company_phone]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_phone', '') }}" placeholder="+20-xxx-xxx-xxxx">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_email" class="form-label">البريد الإلكتروني</label>
+                                            <label for="company_email" class="form-label">{{ __('admin.email') }}</label>
                                             <input type="email" class="form-control" id="company_email" name="settings[company_email]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_email', '') }}" placeholder="info@company.com">
                                         </div>
@@ -103,14 +103,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_latitude" class="form-label">خط العرض (Latitude)</label>
+                                            <label for="company_latitude" class="form-label">{{ __('admin.latitude') }}</label>
                                             <input type="number" step="any" class="form-control" id="company_latitude" name="settings[company_latitude]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_latitude', '') }}" placeholder="30.0444">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="company_longitude" class="form-label">خط الطول (Longitude)</label>
+                                            <label for="company_longitude" class="form-label">{{ __('admin.longitude') }}</label>
                                             <input type="number" step="any" class="form-control" id="company_longitude" name="settings[company_longitude]" 
                                                    value="{{ \App\Models\SiteSetting::get('company_longitude', '') }}" placeholder="31.2357">
                                         </div>
@@ -122,28 +122,28 @@
                             <div class="col-md-6">
                                 <h5 class="mb-3">
                                     <i class="fas fa-map-marker-alt text-danger"></i>
-                                    الخريطة التفاعلية
+                                    {{ __('admin.interactive_map') }}
                                 </h5>
                                 
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span>انقر على الخريطة لتحديد الموقع</span>
+                                            <span>{{ __('admin.click_map_to_select') }}</span>
                                             <button type="button" id="reloadMapBtn" class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-sync-alt"></i> إعادة تحميل
+                                                <i class="fas fa-sync-alt"></i> {{ __('admin.reload_map') }}
                                             </button>
                                         </div>
                                     </div>
                                     <div class="card-body p-0">
                                         <div id="mapContainer" style="height: 400px; background: #f8f9fa; border-radius: 8px; position: relative;">
                                             <div class="text-center p-4">
-                                                <i class="fas fa-spinner fa-spin"></i> جاري تحميل الخريطة...
+                                                <i class="fas fa-spinner fa-spin"></i> {{ __('admin.loading_map') }}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
                                         <div id="locationDisplay" class="text-muted" style="display: none;">
-                                            <small>الموقع المحدد: <span id="coordinateText"></span></small>
+                                            <small>{{ __('admin.selected_location') }}: <span id="coordinateText"></span></small>
                                         </div>
                                     </div>
                                 </div>

@@ -13,12 +13,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center" style="background: rgb(251, 251, 250); padding: 20px;">
-                    <h3 class="card-title" style="color: black; font-size: 24px;">إدارة المجلس الاستشاري</h3>
+                    <h3 class="card-title" style="color: black; font-size: 24px;">{{ __('admin.advisory_board_management') }}</h3>
                     <div style="background: rgb(251, 251, 252); padding: 15px;">
                         <a href="{{ route('admin.advisory-board.create') }}" 
                            class="btn btn-primary btn-lg" 
                            style="background: rgb(26, 0, 128) !important; color: white !important; font-size: 18px !important; padding: 15px 30px !important; border: none !important;">
-                            ➕ إضافة عضو جديد
+                            ➕ {{ __('admin.add_new_member') }}
                         </a>
                     </div>
                 </div>
