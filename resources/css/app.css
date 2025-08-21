@@ -1,0 +1,153 @@
+/* Custom Section Borders - Blue, White, Black */
+.section-container {
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #007bff, #ffffff, #000000) 1;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(0,123,255,0.05), rgba(255,255,255,0.1), rgba(0,0,0,0.05));
+}
+
+.section-container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #007bff, #ffffff, #000000);
+    z-index: -1;
+    border-radius: 8px;
+}
+
+/* Hero Section Border */
+.hero-container {
+    border: 4px solid;
+    border-image: linear-gradient(90deg, #007bff 0%, #ffffff 50%, #000000 100%) 1;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+    background: linear-gradient(135deg, rgba(0,123,255,0.08), rgba(255,255,255,0.15), rgba(0,0,0,0.08));
+}
+
+/* Marine News Container */
+.marine-news-container {
+    border: 3px solid;
+    border-image: linear-gradient(135deg, #000000 0%, #007bff 50%, #ffffff 100%) 1;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+}
+
+/* Exclusive Container */
+.exclusive-container {
+    border: 3px solid;
+    border-image: linear-gradient(180deg, #ffffff 0%, #000000 50%, #007bff 100%) 1;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0,123,255,0.25);
+}
+
+/* Ports Container */
+.ports-container {
+    border: 4px solid;
+    border-image: linear-gradient(270deg, #007bff 0%, #000000 25%, #ffffff 50%, #007bff 75%, #000000 100%) 1;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Categories Container */
+.categories-container {
+    border: 3px solid;
+    border-image: linear-gradient(360deg, #000000 0%, #ffffff 33%, #007bff 66%, #ffffff 100%) 1;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0,123,255,0.2);
+}
+
+/* Main Header Logo Section Border */
+.main-header-section {
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #007bff, #ffffff, #000000, #007bff) 1;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,123,255,0.25);
+}
+
+/* Alternative solid border styles for better browser compatibility */
+@supports not (border-image: linear-gradient(45deg, #007bff, #ffffff, #000000) 1) {
+    .section-container {
+        border: 3px solid #007bff;
+        box-shadow: 
+            0 0 0 1px #ffffff,
+            0 0 0 2px #000000,
+            0 4px 15px rgba(0,123,255,0.3);
+    }
+    
+    .hero-container {
+        border: 4px solid #007bff;
+        box-shadow: 
+            0 0 0 1px #ffffff,
+            0 0 0 2px #000000,
+            0 4px 20px rgba(0,123,255,0.4);
+    }
+    
+    .marine-news-container {
+        border: 3px solid #000000;
+        box-shadow: 
+            0 0 0 1px #007bff,
+            0 0 0 2px #ffffff,
+            0 3px 12px rgba(0,0,0,0.2);
+    }
+    
+    .exclusive-container {
+        border: 3px solid #ffffff;
+        box-shadow: 
+            0 0 0 1px #000000,
+            0 0 0 2px #007bff,
+            0 3px 12px rgba(0,123,255,0.25);
+    }
+    
+    .ports-container {
+        border: 4px solid #007bff;
+        box-shadow: 
+            0 0 0 2px #000000,
+            0 0 0 4px #ffffff,
+            0 4px 15px rgba(0,0,0,0.15);
+    }
+    
+    .categories-container {
+        border: 3px solid #000000;
+        box-shadow: 
+            0 0 0 1px #ffffff,
+            0 0 0 2px #007bff,
+            0 3px 12px rgba(0,123,255,0.2);
+    }
+    
+    .main-header-section {
+        border: 3px solid #007bff;
+        box-shadow: 
+            0 0 0 1px #ffffff,
+            0 0 0 2px #000000,
+            0 4px 20px rgba(0,123,255,0.25);
+    }
+}
+
+/* Additional styling for section spacing */
+.section-spacing {
+    padding: 15px 0;
+}
+
+/* News cards styling with subtle borders */
+.news-card {
+    border: 1px solid rgba(0,123,255,0.2);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.news-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+/* Category badge styling */
+.category-badge {
+    background: linear-gradient(135deg, #007bff, #000000) !important;
+    border: 1px solid #ffffff;
+}

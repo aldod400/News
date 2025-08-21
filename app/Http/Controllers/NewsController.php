@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Events\NewsCreated;
 use Illuminate\Http\Request;
 use App\Events\NewsStatusUpdated;
@@ -83,7 +84,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $allCategory = Category::all();
+        $allCategory = Category::with('subCategories')->get();
         return view('news.create', compact('allCategory'));
     }
 
@@ -98,6 +99,7 @@ class NewsController extends Controller
                 'content' => 'required|string|min:1',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
                 'category_id' => 'required|exists:category,id',
+                'sub_category_id' => 'nullable|exists:sub_categories,id',
             ]);
 
             $imageHashName = null;
@@ -113,6 +115,7 @@ class NewsController extends Controller
                 'content' => $request->content,
                 'user_id' => Auth::id(),
                 'category_id' => $request->category_id,
+                'sub_category_id' => $request->sub_category_id,
                 'image' => $imageHashName,
             ]);
 
@@ -147,7 +150,7 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        $allCategory = Category::all();
+        $allCategory = Category::with('subCategories')->get();
         return view('admin.news.edit', compact('news', 'allCategory'));
     }
 
@@ -162,6 +165,7 @@ class NewsController extends Controller
                 'content' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
                 'category_id' => 'required|exists:category,id',
+                'sub_category_id' => 'nullable|exists:sub_categories,id',
                 'status' => 'required|in:Pending,Accept,Reject'
             ]);
 
@@ -169,6 +173,7 @@ class NewsController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'category_id' => $request->category_id,
+                'sub_category_id' => $request->sub_category_id,
                 'status' => $request->status,
             ];
 
@@ -282,5 +287,15 @@ class NewsController extends Controller
             ->get();
 
         return view('admin.users.draft', compact('acceptedNews', 'notAcceptedNews'));
+    }
+
+    /**
+     * عرض صفحة الـ Subcategory
+     */
+    public function viewSubCategory($subCategoryId)
+    {
+        $subCategory = \App\Models\SubCategory::with('news')->findOrFail($subCategoryId);
+        $newsList = $subCategory->news()->where('status', 'Accept')->latest()->get();
+        return view('viewSubCategory', compact('subCategory', 'newsList'));
     }
 }

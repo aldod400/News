@@ -2,7 +2,7 @@
 
 @section('content')
         <!-- Main Header Logo Section Start -->
-        <div class="container-fluid bg-white py-5 border-bottom shadow-sm">
+        <div class="container-fluid bg-white py-5 border-bottom shadow-sm section-container main-header-section">
             <div class="container text-center">
                 <div class="row justify-content-center">
                     <div class="col-12">
@@ -165,11 +165,9 @@
             </div>
 
             <!-- Ports -->
-            <div>
-
-                <div class="container-fluid section-container ports-container">
-                    <div class="container">
-                        <div class="row section-spacing ports-section">
+            <div class="container-fluid section-container ports-container">
+                <div class="container">
+                    <div class="row section-spacing ports-section">
                             <div class="col-12">
                                 <h3 class="text-center mb-3">{{ __('general.ports') }}</h3>
                                 <div class="row g-3">

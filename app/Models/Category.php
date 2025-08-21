@@ -18,4 +18,12 @@ class Category extends Model
     {
         return $this->hasMany(News::class);
     }
+
+    /**
+     * Get all sub categories for this category
+     */
+    public function subCategories(): HasMany
+    {
+        return $this->hasMany(SubCategory::class, 'parent_category_id');
+    }
 }

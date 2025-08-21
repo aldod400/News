@@ -68,10 +68,19 @@
                                                 <label for="exampleFormControlSelect1">Category</label>
                                                 <select class="form-select" id="exampleFormControlSelect1"
                                                     name="category_id">
+                                                    <option value="">Select Category</option>
                                                     @foreach ($allCategory as $categories)
                                                         <option value="{{ $categories->id }}">{{ $categories->name }}
                                                         </option>
                                                     @endforeach
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="form-group col-md-4">
+                                                <label for="sub_category_select">Sub Category (Optional)</label>
+                                                <select class="form-select" id="sub_category_select"
+                                                    name="sub_category_id">
+                                                    <option value="">Select Sub Category</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
@@ -95,4 +104,37 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-footer')
+    <script>
+        // Handle category change to load sub categories
+        $('#exampleFormControlSelect1').change(function() {
+            const categoryId = $(this).val();
+            const subCategorySelect = $('#sub_category_select');
+            
+            // Clear existing options
+            subCategorySelect.html('<option value="">Select Sub Category</option>');
+            
+            if (categoryId) {
+                $.ajax({
+                    url: '/api/subcategories/' + categoryId,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.length > 0) {
+                            $.each(data, function(index, subCategory) {
+                                subCategorySelect.append(
+                                    '<option value="' + subCategory.id + '">' + 
+                                    subCategory.name + '</option>'
+                                );
+                            });
+                        }
+                    },
+                    error: function() {
+                        console.log('Error loading sub categories');
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

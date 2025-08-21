@@ -1,0 +1,400 @@
+/* Custom Section Borders - Each Section Different Color with Full Background */
+.section-container {
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.section-container:hover {
+    transform: translateY(-2px);
+}
+
+/* 1. Main Header Logo Section - أبيض */
+.main-header-section {
+    border: 4px solid #ffffff;
+    border-radius: 12px;
+    background: #ffffff !important;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+    margin: 15px 0;
+}
+
+.main-header-section:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* 2. Hero Section - أزرق */
+.hero-container {
+    border: 4px solid #007bff;
+    border-radius: 12px;
+    background: #007bff !important;
+    box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+    margin: 25px 0;
+    padding: 25px;
+}
+
+.hero-container:hover {
+    box-shadow: 0 8px 30px rgba(0,123,255,0.6);
+}
+
+/* 3. Marine News Container - أسود */
+.marine-news-container {
+    border: 4px solid #000000;
+    border-radius: 10px;
+    background: #000000 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.marine-news-container:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* 4. Exclusive Container - أبيض */
+.exclusive-container {
+    border: 4px solid #ffffff;
+    border-radius: 10px;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.exclusive-container:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* 5. Ports Container - أزرق */
+.ports-container {
+    border: 4px solid #007bff;
+    border-radius: 10px;
+    background: #007bff !important;
+    box-shadow: 0 5px 18px rgba(0,123,255,0.4);
+    padding: 25px;
+}
+
+.ports-container:hover {
+    box-shadow: 0 7px 25px rgba(0,123,255,0.6);
+}
+
+/* 6. Categories Container - أسود */
+.categories-container {
+    border: 4px solid #000000;
+    border-radius: 10px;
+    background: #000000 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    padding: 25px;
+}
+
+.categories-container:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Additional styling for section spacing */
+.section-spacing {
+    padding: 20px 0;
+}
+
+/* News cards styling with background-specific styles */
+.news-card {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Cards in white background sections */
+.main-header-section .news-card,
+.exclusive-container .news-card {
+    background: rgba(0,0,0,0.05) !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+}
+
+.main-header-section .news-card:hover,
+.exclusive-container .news-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.1) !important;
+}
+
+/* Cards in blue background sections */
+.hero-container .news-card,
+.ports-container .news-card {
+    background: rgba(255,255,255,0.15) !important;
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+.hero-container .news-card:hover,
+.ports-container .news-card:hover {
+    box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.25) !important;
+}
+
+/* Cards in black background sections */
+.marine-news-container .news-card,
+.categories-container .news-card {
+    background: rgba(255,255,255,0.15) !important;
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+.marine-news-container .news-card:hover,
+.categories-container .news-card:hover {
+    box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.25) !important;
+}
+
+/* Category badge styling for different backgrounds */
+/* White background badges */
+.main-header-section .category-badge,
+.exclusive-container .category-badge {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #000000;
+}
+
+/* Blue background badges */
+.hero-container .category-badge,
+.ports-container .category-badge {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ffffff;
+}
+
+/* Black background badges */
+.marine-news-container .category-badge,
+.categories-container .category-badge {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ffffff;
+}
+
+/* Enhanced borders for main sections */
+.news-sections-container {
+    padding: 10px 0;
+}
+
+/* Special styling for section titles */
+.section-container h3 {
+    color: #333;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Different title underlines for each section */
+.main-header-section h1,
+.main-header-section h3 {
+    position: relative;
+}
+
+.main-header-section h1::after,
+.main-header-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #000000;
+    border-radius: 2px;
+}
+
+.hero-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+.marine-news-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+.exclusive-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #000000;
+    border-radius: 2px;
+}
+
+.ports-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+.categories-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-container {
+        margin: 15px 0;
+        padding: 15px;
+        border-width: 3px;
+    }
+    
+    .hero-container, 
+    .main-header-section,
+    .ports-container,
+    .marine-news-container,
+    .exclusive-container,
+    .categories-container {
+        border-width: 3px;
+        padding: 20px;
+    }
+}
+
+/* Section specific text colors for better contrast */
+/* White background sections - Black text */
+.main-header-section,
+.exclusive-container {
+    color: #000000 !important;
+}
+
+.main-header-section *,
+.exclusive-container * {
+    color: #000000 !important;
+}
+
+.main-header-section h1,
+.main-header-section h2,
+.main-header-section h3,
+.main-header-section h4,
+.main-header-section h5,
+.main-header-section h6,
+.main-header-section p,
+.main-header-section a,
+.main-header-section span,
+.exclusive-container h1,
+.exclusive-container h2,
+.exclusive-container h3,
+.exclusive-container h4,
+.exclusive-container h5,
+.exclusive-container h6,
+.exclusive-container p,
+.exclusive-container a,
+.exclusive-container span {
+    color: #000000 !important;
+}
+
+/* Blue background sections - White text */
+.hero-container,
+.ports-container {
+    color: #ffffff !important;
+}
+
+.hero-container *,
+.ports-container * {
+    color: #ffffff !important;
+}
+
+.hero-container h1,
+.hero-container h2,
+.hero-container h3,
+.hero-container h4,
+.hero-container h5,
+.hero-container h6,
+.hero-container p,
+.hero-container a,
+.hero-container span,
+.ports-container h1,
+.ports-container h2,
+.ports-container h3,
+.ports-container h4,
+.ports-container h5,
+.ports-container h6,
+.ports-container p,
+.ports-container a,
+.ports-container span {
+    color: #ffffff !important;
+}
+
+/* Black background sections - White text */
+.marine-news-container,
+.categories-container {
+    color: #ffffff !important;
+}
+
+.marine-news-container *,
+.categories-container * {
+    color: #ffffff !important;
+}
+
+.marine-news-container h1,
+.marine-news-container h2,
+.marine-news-container h3,
+.marine-news-container h4,
+.marine-news-container h5,
+.marine-news-container h6,
+.marine-news-container p,
+.marine-news-container a,
+.marine-news-container span,
+.categories-container h1,
+.categories-container h2,
+.categories-container h3,
+.categories-container h4,
+.categories-container h5,
+.categories-container h6,
+.categories-container p,
+.categories-container a,
+.categories-container span {
+    color: #ffffff !important;
+}
+
+/* Special handling for cards inside sections */
+.marine-news-container .news-card,
+.categories-container .news-card {
+    background: rgba(255,255,255,0.1);
+    border-color: #ffffff;
+}
+
+.hero-container .news-card,
+.ports-container .news-card {
+    background: rgba(255,255,255,0.1);
+    border-color: #ffffff;
+}
+
+.main-header-section .news-card,
+.exclusive-container .news-card {
+    background: rgba(0,0,0,0.05);
+    border-color: #000000;
+}

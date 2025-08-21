@@ -29,6 +29,9 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('th/css/style.css') }}" rel="stylesheet" />
     
+    <!-- Custom App Stylesheet -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+    
     <!-- Carousel Fix Stylesheet -->
     <link href="{{ asset('css/carousel-fix.css') }}" rel="stylesheet" />
 
@@ -36,6 +39,127 @@
     <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact-float.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home-style.css') }}">
+    
+    {{-- Dropdown Custom CSS --}}
+    <style>
+        /* الـ dropdown settings - يظهر فوق الـ navbar */
+        .category-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: fixed !important;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 999999999 !important;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            top: 100px !important; /* فوق الـ navbar مباشرة */
+            left: auto;
+        }
+        
+        .category-dropdown:hover .dropdown-content {
+            display: block !important;
+        }
+        
+        .dropdown-content a {
+            color: #333333 !important;
+            padding: 10px 15px;
+            text-decoration: none !important;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #007bff !important;
+        }
+        
+        /* تحسين أزرار التمرير والـ scroll container */
+        .scroll-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .scroll-content {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            flex: 1;
+            max-width: calc(100% - 80px); /* مساحة للأزرار */
+        }
+        
+        .scroll-button {
+            position: relative;
+            z-index: 10;
+            min-width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            cursor: pointer;
+            top: 10px; /* نزل الأزرار تحت شوية */
+        }
+        
+        .scroll-button.left {
+            margin-right: 10px;
+        }
+        
+        .scroll-button.right {
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 1199px) {
+            .scroll-button {
+                display: none !important;
+            }
+            
+            .scroll-content {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+        }
+        
+        /* Breaking News Bar CSS */
+        .breaking-news-scroll {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .breaking-news-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-left 30s linear infinite;
+        }
+        
+        .breaking-news-item {
+            margin-right: 50px;
+            font-weight: 500;
+        }
+        
+        .breaking-news-item:hover a {
+            text-decoration: underline !important;
+        }
+        
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* إيقاف التمرير عند الـ hover */
+        .breaking-news-scroll:hover .breaking-news-content {
+            animation-play-state: paused;
+        }
+    </style>
     
     {{-- RTL Support --}}
     @if(app()->getLocale() == 'ar')
@@ -50,6 +174,42 @@
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End --> --}}
+
+    <!-- Breaking News Bar Start -->
+    <div class="container-fluid bg-primary py-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-bolt text-white me-2"></i>
+                        <span class="text-white fw-bold">{{ __('general.breaking_news') ?? 'عاجل' }}</span>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="breaking-news-scroll">
+                        <div class="breaking-news-content">
+                            @php
+                                $breakingNews = \App\Models\News::where('status', 'Accept')
+                                    ->latest()
+                                    ->take(5)
+                                    ->get();
+                            @endphp
+                            @forelse($breakingNews as $news)
+                                <span class="breaking-news-item text-white">
+                                    <a href="{{ route('news.show', $news->id) }}" class="text-white text-decoration-none">
+                                        {{ $news->title }}
+                                    </a>
+                                </span>
+                            @empty
+                                <span class="breaking-news-item text-white">لا توجد أخبار عاجلة حالياً</span>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breaking News Bar End -->
 
     <!-- Navbar start -->
     <div class="container-fluid sticky-top px-0">
@@ -69,15 +229,27 @@
                             <button class="scroll-button left btn btn-outline-primary d-none d-xl-block" id="scrollLeft">
                                 <span>&lt;</span>
                             </button>
-                            <div class="scroll-content">
+                            <div class="scroll-content" style="overflow: visible;">
                                 <div class="navbar-nav mx-lg-4 border-top"
-                                    style="white-space: nowrap; max-width: 60vw;">
+                                    style="white-space: nowrap; max-width: 60vw; overflow: visible;">
                                     <a href="{{ route('index') }}" class="nav-item nav-link mt-2 {{ request()->is('/') ? 'active text-primary' : '' }}">
                                         <i class="fas fa-home me-1"></i>{{ __('general.home') }}
                                     </a>
-                                    @foreach (\App\Models\Category::all() as $categories)
-                                        <a href="{{ route('news.viewCategory', $categories->id) }}"
-                                            class="nav-item nav-link mt-2">{{ $categories->name }}</a>
+                                    @foreach (\App\Models\Category::with('subCategories')->get() as $category)
+                                        @if($category->subCategories->count())
+                                            <div class="category-dropdown nav-item d-inline-block mt-2" onmouseenter="positionDropdown(this)" onmouseleave="hideDropdown(this)">
+                                                <a href="{{ route('news.viewCategory', $category->id) }}" class="nav-link">
+                                                    {{ $category->name }} <i class="fas fa-chevron-down small"></i>
+                                                </a>
+                                                <div class="dropdown-content" id="dropdown-{{ $category->id }}">
+                                                    @foreach($category->subCategories as $subCategory)
+                                                        <a href="{{ route('news.viewSubCategory', $subCategory->id) }}">{{ $subCategory->name }}</a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @else
+                                            <a href="{{ route('news.viewCategory', $category->id) }}" class="nav-item nav-link mt-2">{{ $category->name }}</a>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
@@ -133,13 +305,21 @@
                             </a>
                         </div>
                         <div class="d-flex line-h">
-                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="#"><i
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_twitter', '#') }}" target="_blank"><i
                                     class="fab fa-twitter text-dark"></i></a>
-                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="#"><i
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_facebook', '#') }}" target="_blank"><i
                                     class="fab fa-facebook-f text-dark"></i></a>
-                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="#"><i
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_youtube', '#') }}" target="_blank"><i
                                     class="fab fa-youtube text-dark"></i></a>
-                            <a class="btn btn-light btn-md-square rounded-circle" href="#"><i
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_instagram', '#') }}" target="_blank"><i
+                                    class="fab fa-instagram text-dark"></i></a>
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_linkedin', '#') }}" target="_blank"><i
+                                    class="fab fa-linkedin text-dark"></i></a>
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_pinterest', '#') }}" target="_blank"><i
+                                    class="fab fa-pinterest text-dark"></i></a>
+                            <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_timber', '#') }}" target="_blank"><i
+                                    class="fas fa-tree text-dark"></i></a>
+                            <a class="btn btn-light btn-md-square rounded-circle" href="{{ \App\Models\SiteSetting::get('social_github', '#') }}" target="_blank"><i
                                     class="fab fa-github text-dark"></i></a>
                         </div>
                     </div>
@@ -229,7 +409,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <span class="text-light"><a href="https://marketopiateam.com"><i
+                    <span class="text-light"><a href="team.com"><i
                                 class="fas fa-copyright text-light me-2"></i>MarketopiaTeam</a>, All right reserved.</span>
                 </div>
             </div>
@@ -263,6 +443,31 @@
     <script src="{{ asset('js/shortcut.js') }}"></script>
     <script src="{{ asset('js/scroll.js') }}"></script>
     <script src="{{ asset('js/home-interactions.js') }}"></script>
+    
+    {{-- JavaScript لجعل الـ dropdown يظهر فوق الـ navbar --}}
+    <script>
+        function positionDropdown(element) {
+            const dropdown = element.querySelector('.dropdown-content');
+            const rect = element.getBoundingClientRect();
+            
+            // حساب الموقع بدقة
+            const topPosition = rect.bottom + window.pageYOffset;
+            const leftPosition = rect.left + window.pageXOffset;
+            
+            dropdown.style.display = 'block';
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = topPosition + 'px';
+            dropdown.style.left = leftPosition + 'px';
+            dropdown.style.zIndex = '999999999';
+        }
+        
+        function hideDropdown(element) {
+            const dropdown = element.querySelector('.dropdown-content');
+            setTimeout(() => {
+                dropdown.style.display = 'none';
+            }, 100);
+        }
+    </script>
     
     {{-- Page-specific scripts --}}
     @yield('scripts')

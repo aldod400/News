@@ -107,6 +107,29 @@
                                     </ul>
                                 </div>
                             </li>
+                            
+                            <li class="nav-item {{ Route::is('admin.subcategory.*') ? 'active' : '' }}">
+                                <a data-bs-toggle="collapse" href="#subcategory">
+                                    <i class="fas fa-list-ul"></i>
+                                    <p>Sub Category</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse {{ Route::is('admin.subcategory.*') ? 'show' : '' }}" id="subcategory">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a href="{{ route('admin.subcategory.manage') }}">
+                                                <span class="sub-item">Manage</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('admin.subcategory.create') }}">
+                                                <span class="sub-item">Create</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
                             <li class="nav-item {{ Route::is('admin.robots-txt.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.robots-txt.index') }}">
                                     <i class="fas fa-robot"></i>

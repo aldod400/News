@@ -72,6 +72,37 @@
                             </a>
                         </div>
                         @endif
+
+                        <!-- Social Media Links -->
+                        <div class="mt-4">
+                            <h6 class="mb-3">تابعنا على:</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="{{ \App\Models\SiteSetting::get('social_twitter', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-twitter me-1"></i>Twitter
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_facebook', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-facebook-f me-1"></i>Facebook
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_youtube', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-youtube me-1"></i>YouTube
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_instagram', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-instagram me-1"></i>Instagram
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_linkedin', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-linkedin me-1"></i>LinkedIn
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_pinterest', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-pinterest me-1"></i>Pinterest
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_timber', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fas fa-tree me-1"></i>Timber
+                                </a>
+                                <a href="{{ \App\Models\SiteSetting::get('social_github', '#') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-github me-1"></i>GitHub
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,6 +200,19 @@
     #company-map {
         height: 250px !important;
     }
+}
+
+/* Social Media Button Styles */
+.btn-outline-primary.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary.btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
 }
 </style>
 

@@ -152,4 +152,8 @@ return [
     'quick_actions' => 'Quick Actions',
     'reply_via_email' => 'Reply via Email',
     'mark_as_replied' => 'Mark as Replied',
+    
+    // Social Media
+    'social_media_links' => 'Social Media Links',
+    'social_media_description' => 'Add your social media account links',
 ];

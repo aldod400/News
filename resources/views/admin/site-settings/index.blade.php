@@ -118,6 +118,85 @@
                                 </div>
                             </div>
 
+                            <!-- Social Media Links Section -->
+                            <div class="col-md-12 mt-4">
+                                <div class="social-media-section">
+                                    <h5 class="mb-3">
+                                        <i class="fas fa-share-alt text-info"></i>
+                                        {{ __('admin.social_media_links') }}
+                                    </h5>
+                                    <p class="text-muted mb-4">{{ __('admin.social_media_description') }}</p>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_twitter" class="form-label">
+                                            <i class="fab fa-twitter text-primary me-2"></i>Twitter
+                                        </label>
+                                        <input type="url" class="form-control" id="social_twitter" name="settings[social_twitter]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_twitter', '') }}" placeholder="https://twitter.com/yourhandle">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_facebook" class="form-label">
+                                            <i class="fab fa-facebook-f text-primary me-2"></i>Facebook
+                                        </label>
+                                        <input type="url" class="form-control" id="social_facebook" name="settings[social_facebook]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_facebook', '') }}" placeholder="https://facebook.com/yourpage">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_youtube" class="form-label">
+                                            <i class="fab fa-youtube text-danger me-2"></i>YouTube
+                                        </label>
+                                        <input type="url" class="form-control" id="social_youtube" name="settings[social_youtube]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_youtube', '') }}" placeholder="https://youtube.com/yourchannel">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_instagram" class="form-label">
+                                            <i class="fab fa-instagram text-danger me-2"></i>Instagram
+                                        </label>
+                                        <input type="url" class="form-control" id="social_instagram" name="settings[social_instagram]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_instagram', '') }}" placeholder="https://instagram.com/youraccount">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_linkedin" class="form-label">
+                                            <i class="fab fa-linkedin text-primary me-2"></i>LinkedIn
+                                        </label>
+                                        <input type="url" class="form-control" id="social_linkedin" name="settings[social_linkedin]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_linkedin', '') }}" placeholder="https://linkedin.com/company/yourcompany">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_pinterest" class="form-label">
+                                            <i class="fab fa-pinterest text-danger me-2"></i>Pinterest
+                                        </label>
+                                        <input type="url" class="form-control" id="social_pinterest" name="settings[social_pinterest]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_pinterest', '') }}" placeholder="https://pinterest.com/youraccount">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_timber" class="form-label">
+                                            <i class="fas fa-tree text-success me-2"></i>Timber
+                                        </label>
+                                        <input type="url" class="form-control" id="social_timber" name="settings[social_timber]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_timber', '') }}" placeholder="https://timber.com/youraccount">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="social_github" class="form-label">
+                                            <i class="fab fa-github text-dark me-2"></i>GitHub
+                                        </label>
+                                        <input type="url" class="form-control" id="social_github" name="settings[social_github]" 
+                                               value="{{ \App\Models\SiteSetting::get('social_github', '') }}" placeholder="https://github.com/youraccount">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Simple Map Section -->
                             <div class="col-md-6">
                                 <h5 class="mb-3">
@@ -178,6 +257,35 @@
 .leaflet-container {
     height: 400px !important;
     border-radius: 8px;
+}
+
+/* Social Media Section Styling */
+.social-media-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.social-media-section .form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.social-media-section .form-control {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.social-media-section .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.social-media-section .fab,
+.social-media-section .fas {
+    font-size: 16px;
 }
 </style>
 @endsection

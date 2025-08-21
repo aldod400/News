@@ -152,4 +152,8 @@ return [
     'quick_actions' => 'إجراءات سريعة',
     'reply_via_email' => 'الرد عبر البريد',
     'mark_as_replied' => 'تعليم كمرد عليه',
+    
+    // Social Media
+    'social_media_links' => 'روابط وسائل التواصل الاجتماعي',
+    'social_media_description' => 'أضف روابط حساباتك على وسائل التواصل الاجتماعي',
 ];

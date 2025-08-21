@@ -18,6 +18,52 @@
 <!-- Company Information -->
 @include('components.company-info-leaflet')
 
+<!-- Social Media Links Section -->
+<section class="social-media py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-4">{{ __('general.follow_us') }}</h3>
+                <p class="text-muted mb-4">{{ __('general.social_media_subtitle') }}</p>
+                <div class="social-links d-flex justify-content-center flex-wrap gap-3">
+                    <a href="{{ \App\Models\SiteSetting::get('social_twitter', '#') }}" class="social-link twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_facebook', '#') }}" class="social-link facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_youtube', '#') }}" class="social-link youtube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_instagram', '#') }}" class="social-link instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_linkedin', '#') }}" class="social-link linkedin" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_pinterest', '#') }}" class="social-link pinterest" target="_blank">
+                        <i class="fab fa-pinterest"></i>
+                        <span>Pinterest</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_timber', '#') }}" class="social-link timber" target="_blank">
+                        <i class="fas fa-tree"></i>
+                        <span>Timber</span>
+                    </a>
+                    <a href="{{ \App\Models\SiteSetting::get('social_github', '#') }}" class="social-link github" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Contact Form Section -->
 @if(getCompanyInfo('email'))
 <section class="contact-form py-5">
@@ -137,6 +183,74 @@
 .contact-form .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Social Media Links Styles */
+.social-media {
+    background-color: #f8f9fa;
+}
+
+.social-links {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.social-link i {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.social-link.twitter {
+    background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+}
+
+.social-link.facebook {
+    background: linear-gradient(135deg, #3b5998 0%, #2d4373 100%);
+}
+
+.social-link.youtube {
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+}
+
+.social-link.instagram {
+    background: linear-gradient(135deg, #e4405f 0%, #c13584 50%, #833ab4 100%);
+}
+
+.social-link.linkedin {
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+}
+
+.social-link.pinterest {
+    background: linear-gradient(135deg, #bd081c 0%, #8c0613 100%);
+}
+
+.social-link.timber {
+    background: linear-gradient(135deg, #228b22 0%, #006400 100%);
+}
+
+.social-link.github {
+    background: linear-gradient(135deg, #333 0%, #24292e 100%);
 }
 
 @media (max-width: 768px) {

@@ -38,6 +38,22 @@
                                 </a>
                             </div>
                         </div>
+                        
+                        {{-- Flash Messages --}}
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        
                         <div class="card-body">
                             <form id="editNewsForm" method="POST" action="{{ route('admin.news.update', $news->id) }}"
                                 enctype="multipart/form-data">
@@ -138,10 +154,21 @@
 @endsection
 
 @section('custom-footer')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        console.log('Script loaded');
+        console.log('jQuery available:', typeof $ !== 'undefined');
+        
         $(document).ready(function() {
+            console.log('Document ready');
+            console.log('Form element exists:', $('#editNewsForm').length > 0);
+            
+            if ($('#editNewsForm').length === 0) {
+                console.error('Form not found!');
+                return;
+            }
+            
             $('#editNewsForm').on('submit', function(e) {
+                console.log('Form submit intercepted');
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -149,7 +176,7 @@
                 let originalText = submitBtn.html();
 
                 // Disable button and show loading
-                submitBtn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Updating...');
+                submitBtn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> جاري التحديث...');
 
                 $.ajax({
                     url: $(this).attr('action'),
@@ -157,37 +184,45 @@
                     data: formData,
                     processData: false,
                     contentType: false,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
                         if (response.success) {
+                            // Show success message using SweetAlert2
                             Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
+                                title: 'نجح!',
                                 text: response.message,
-                                timer: 2000,
-                                showConfirmButton: false
+                                icon: 'success',
+                                confirmButtonText: 'موافق'
                             }).then(() => {
                                 window.location.href = response.redirect_url;
                             });
                         } else {
                             Swal.fire({
+                                title: 'خطأ!',
+                                text: response.message,
                                 icon: 'error',
-                                title: 'Error!',
-                                text: response.message
+                                confirmButtonText: 'موافق'
                             });
                         }
                     },
                     error: function(xhr) {
-                        let errors = xhr.responseJSON?.errors || {};
-                        let errorMessage = 'Please check the form and try again.';
+                        let errorMessage = 'حدث خطأ أثناء التحديث. يرجى المحاولة مرة أخرى.';
                         
-                        if (Object.keys(errors).length > 0) {
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
                             errorMessage = Object.values(errors).flat().join('\n');
+                        } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
                         }
 
                         Swal.fire({
+                            title: 'خطأ!',
+                            text: errorMessage,
                             icon: 'error',
-                            title: 'Validation Error!',
-                            text: errorMessage
+                            confirmButtonText: 'موافق'
                         });
                     },
                     complete: function() {

@@ -24,6 +24,11 @@ class News extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function subCategory(): BelongsTo
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);

@@ -19,6 +19,7 @@ return [
     'latest_maritime_news' => 'Latest Maritime News & Updates',
     'recent_news' => 'Recent News',
     'breaking' => 'Breaking',
+    'breaking_news' => 'Breaking News',
     'popular_news' => 'Popular News',
     'top_news' => 'Top News',
     'top_views' => 'Top Views',
@@ -194,4 +195,6 @@ return [
     'ok' => 'OK',
     'system_error' => 'System error. Please reload the page.',
     'contact_form_not_found' => 'Error: Contact form not found',
+    'follow_us' => 'Follow Us',
+    'social_media_subtitle' => 'Connect with us on various social media platforms',
 ];

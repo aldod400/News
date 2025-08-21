@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\RobotsTxtController;
@@ -23,6 +24,7 @@ Route::get('/', [NewsController::class, 'index'])->name('index');
 Route::get('/news/{news}/show', [NewsController::class, 'show'])->name('news.show');
 Route::post('/news/{news}/like', [LikeController::class, 'likeNews'])->name('news.like');
 Route::get('/news/{categories}/category', [NewsController::class, 'viewCategory'])->name('news.viewCategory');
+Route::get('/news/{subCategory}/subcategory', [NewsController::class, 'viewSubCategory'])->name('news.viewSubCategory');
 
 // Robots.txt & Sitemap
 Route::get('/robots.txt', [RobotsTxtController::class, 'serve']);
@@ -85,6 +87,17 @@ Route::middleware(['role:Super Admin'])->group(function () {
         'destroy'
     ]);
     Route::get('/admin/category/manage', [CategoryController::class, 'manage'])->name('admin.category.manage');
+    
+    // Sub Category
+    Route::resource('admin/subcategory', SubCategoryController::class)->names('admin.subcategory')->only([
+        'store',
+        'update',
+        'destroy'
+    ]);
+    Route::get('/admin/subcategory/manage', [SubCategoryController::class, 'manage'])->name('admin.subcategory.manage');
+    Route::get('/admin/subcategory/create', [SubCategoryController::class, 'create'])->name('admin.subcategory.create');
+    Route::get('/admin/subcategory/{subCategory}/edit', [SubCategoryController::class, 'edit'])->name('admin.subcategory.edit');
+    Route::get('/api/subcategories/{categoryId}', [SubCategoryController::class, 'getSubCategoriesByParent'])->name('api.subcategories.by-parent');
     // Users
     Route::resource('admin/users', UserController::class)->only(['index', 'destroy'])
         ->names([

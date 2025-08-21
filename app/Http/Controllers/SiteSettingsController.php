@@ -32,6 +32,15 @@ class SiteSettingsController extends Controller
             'settings.company_email' => 'nullable|email|max:255',
             'settings.company_latitude' => 'nullable|numeric|between:-90,90',
             'settings.company_longitude' => 'nullable|numeric|between:-180,180',
+            // Social Media Links
+            'settings.social_twitter' => 'nullable|url|max:255',
+            'settings.social_facebook' => 'nullable|url|max:255',
+            'settings.social_youtube' => 'nullable|url|max:255',
+            'settings.social_instagram' => 'nullable|url|max:255',
+            'settings.social_linkedin' => 'nullable|url|max:255',
+            'settings.social_pinterest' => 'nullable|url|max:255',
+            'settings.social_timber' => 'nullable|url|max:255',
+            'settings.social_github' => 'nullable|url|max:255',
         ], [
             'settings.company_name.required' => 'اسم الشركة مطلوب',
             'settings.company_address.required' => 'عنوان الشركة مطلوب',
@@ -40,6 +49,14 @@ class SiteSettingsController extends Controller
             'settings.company_email.email' => 'صيغة البريد الإلكتروني غير صحيحة',
             'settings.company_latitude.numeric' => 'خط العرض يجب أن يكون رقم',
             'settings.company_longitude.numeric' => 'خط الطول يجب أن يكون رقم',
+            'settings.social_twitter.url' => 'رابط Twitter غير صحيح',
+            'settings.social_facebook.url' => 'رابط Facebook غير صحيح',
+            'settings.social_youtube.url' => 'رابط YouTube غير صحيح',
+            'settings.social_instagram.url' => 'رابط Instagram غير صحيح',
+            'settings.social_linkedin.url' => 'رابط LinkedIn غير صحيح',
+            'settings.social_pinterest.url' => 'رابط Pinterest غير صحيح',
+            'settings.social_timber.url' => 'رابط Timber غير صحيح',
+            'settings.social_github.url' => 'رابط GitHub غير صحيح',
         ]);
 
         if ($validator->fails()) {
